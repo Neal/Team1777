@@ -125,7 +125,7 @@ public class FileIO {
 			writer.write(log.toString());
 			c.close();
 		} catch (Exception e) {
-			//Do nothing
+			// Do nothing
 		}
 	}
 }

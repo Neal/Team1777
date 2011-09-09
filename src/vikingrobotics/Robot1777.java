@@ -36,20 +36,20 @@ public class Robot1777 extends SimpleRobot implements Const {
 
 	Arm arm;
 	Claw claw;
+	Gyro gyro;
 	Drive drive;
-	UserMessages uM;
-	Compressorr compressor;
-	LineSensors LineSensors;
 	Servo camServo;
+	AxisCamera cam;
+	UserMessages uM;
+	Watchdog watchdog;
 	Joystick joystick1;
 	Joystick joystick2;
 	Joystick joystick3;
 	Joystick joystick4;
-	Gyro gyro;
-	AxisCamera cam;
-	Watchdog watchdog;
-	SmartDashboard smartDB;
 	Autonomous autonomous;
+	SmartDashboard smartDB;
+	Compressorr compressor;
+	LineSensors LineSensors;
 
 
 	/**
