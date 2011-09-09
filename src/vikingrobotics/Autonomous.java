@@ -105,7 +105,7 @@ public class Autonomous implements Const {
 		
 		if(timeUp(currentTime)) {
 			r.drive.stop();
-			r.arm.stop();
+			r.arm.set(0);
 		}
 	}
 	

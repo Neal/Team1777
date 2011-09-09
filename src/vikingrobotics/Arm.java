@@ -24,7 +24,6 @@
 
 package vikingrobotics;
 
-import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
 
 /**
@@ -42,6 +41,11 @@ public class Arm implements Const {
 		this.r = r;
 	}
 
+	
+	/**
+	 * Sets the speed for the arm.
+	 * @param speed The speed for the arm to set.
+	 */
 	void setSpeed(double speed) {
 		
 		// need to test if 'a' works... or how it works
@@ -49,26 +53,28 @@ public class Arm implements Const {
 		arm.tankDrive(speed, 0);
 //		a.set(speed);
 	}
+
 	
-	void stop() {
+	/**
+	 * Move the arm as per the speed and set a dead zone for joystick.
+	 * @param speed The speed for the arm to set.
+	 */
+	public void set(double speed) {
+
+		setSpeed(setDeadZone(speed));
 		
-		arm.tankDrive(0, 0);
-//		a.stopMotor();
-		r.uM.write(5, "Arm: Not moving");
+		if(setDeadZone(speed) < 0) {
+			r.uM.write(5, "Arm: Moving Upwards");
+		}
+		else if(setDeadZone(speed) > 0) {
+			r.uM.write(5, "Arm: Moving Downwards");
+		}
+		if(setDeadZone(speed) == 0) {
+			r.uM.write(5, "Arm: Not moving");
+		}
 	}
 
-	void upwards(double speed) {
-
-		setSpeed(setDeadZone(speed));
-		r.uM.write(5, "Arm: Moving Upwards");
-	}
 	
-	void downwards(double speed) {
-
-		setSpeed(setDeadZone(speed));
-		r.uM.write(5, "Arm: Moving Downwards");
-	}
-
 	private double setDeadZone(double x) {
 		
 		if (Math.abs(x) < minimumJoystickValue) {

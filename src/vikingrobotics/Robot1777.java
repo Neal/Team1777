@@ -128,14 +128,11 @@ public class Robot1777 extends SimpleRobot implements Const {
 					LineSensors.printUM();
 					compressor.run();
 
-					// ARM Code
-					if(joystick2.getY() >= 0.2) arm.downwards(joystick2.getY() * 0.75);
-					else if(joystick2.getY() <=-0.2) arm.upwards(joystick2.getY() * 0.75);
-					else if(joystick1.getRawAxis(5) >= 0.2) arm.downwards(joystick2.getRawAxis(5) * 0.75);
-					else if(joystick1.getRawAxis(5) <=-0.2) arm.upwards(joystick2.getRawAxis(5) * 0.75);
-					else arm.stop();
-					// ARM Code > DONE
+					
+					// Arm code
+					arm.set(joystick1.getY() * 0.75);
 
+					
 					// Camera Code
 					if(joystick2.getRawButton(9) || joystick1.getRawButton(11))
 					{
@@ -145,8 +142,8 @@ public class Robot1777 extends SimpleRobot implements Const {
 					{
 						camServo.setAngle(0);
 					}
-					// Camera Code > DONE
 
+					
 					// Claw Code
 					if(joystick2.getRawButton(1) ||
 					   joystick1.getRawButton(1) ||
@@ -162,7 +159,7 @@ public class Robot1777 extends SimpleRobot implements Const {
 
 						claw.close();
 					}
-					// Claw Code > DONE
+					
 
 					// Gyro Code
 					gyroAngle = (int) gyro.getAngle();
@@ -170,7 +167,7 @@ public class Robot1777 extends SimpleRobot implements Const {
 					if(gyroAngle >= 360) gyro.reset();
 					if(gyroAngle <=-360) gyro.reset();
 					uM.write(5, 13, " | " + gyroAngle);
-					// Gyro Code > DONE
+					
 
 					// Driving Code
 					if (isTankDrive) {
@@ -178,7 +175,7 @@ public class Robot1777 extends SimpleRobot implements Const {
 					} else {
 						drive.mecanumDrive(joystick1.getX(), -joystick1.getY(), -joystick1.getZ() * 0.95);
 					}
-					// Driving Code > DONE
+					
 
 					Timer.delay(0.005);
 			}
