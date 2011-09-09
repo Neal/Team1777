@@ -59,21 +59,21 @@ public class Robot1777 extends SimpleRobot implements Const {
 	 */
 	public void robotInit() {
 
+			// Yeah, I know I need to organise this a little -- who care, it works :P
 			System.out.println("\nBooting up...\nLoading essentials..."); // Don't worry, this is just for debug (to know when it reaches here)
+			claw = new Claw();
 			arm = new Arm(this);
 			drive = new Drive();
-			claw = new Claw();
 			uM = new UserMessages();
+			autonomous = new Autonomous(this);
 			compressor = new Compressorr(this);
 			LineSensors = new LineSensors(this);
-			gyro = new Gyro(GYRO_SLOT, GYRO_CHANNEL);
 			camServo = new Servo(CAM_SERVO);
+			gyro = new Gyro(GYRO_SLOT, GYRO_CHANNEL);
 			joystick1 = new Joystick(JOYSTICK1);
 			joystick2 = new Joystick(JOYSTICK2);
 			joystick3 = new Joystick(JOYSTICK3);
 			joystick4 = new Joystick(JOYSTICK4);
-
-			autonomous = new Autonomous(this);
 			AxisCamera.getInstance();
 			Watchdog.getInstance();
 			SmartDashboard.init();
@@ -97,6 +97,7 @@ public class Robot1777 extends SimpleRobot implements Const {
 
 			while (isAutonomous() && isEnabled()) {
 					
+					// Just hoping everything works :)
 					getWatchdog().feed();
 					autonomous.run();
 					Timer.delay(0.005);
@@ -130,7 +131,7 @@ public class Robot1777 extends SimpleRobot implements Const {
 
 					
 					// Arm code
-					arm.set(joystick1.getY() * 0.75);
+					arm.set(joystick1.getY() * 0.75); // I love this new method for arm :D
 
 					
 					// Camera Code
@@ -138,7 +139,7 @@ public class Robot1777 extends SimpleRobot implements Const {
 					{
 						camServo.setAngle(180);
 					}
-					if(joystick2.getRawButton(10) || joystick1.getRawButton(12))
+					if(joystick2.getRawButton(10) || joystick1.getRawButton(12)) // Not sure if we even need this.
 					{
 						camServo.setAngle(0);
 					}
@@ -162,7 +163,7 @@ public class Robot1777 extends SimpleRobot implements Const {
 					
 
 					// Gyro Code
-					gyroAngle = (int) gyro.getAngle();
+					gyroAngle = (int) gyro.getAngle();				// All this works if you have a gyro plugged in.
 					if(joystick1.getRawButton(10)) gyro.reset();
 					if(gyroAngle >= 360) gyro.reset();
 					if(gyroAngle <=-360) gyro.reset();
