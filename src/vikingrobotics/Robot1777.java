@@ -77,7 +77,7 @@ public class Robot1777 extends SimpleRobot implements Const {
 			AxisCamera.getInstance();
 			Watchdog.getInstance();
 			SmartDashboard.init();
-			updateCamera();
+			initCamera();
 			getWatchdog().setExpiration(0.2);
 			System.out.println("Robot Ready!\n\n");
 			uM.write(1, "Robot Ready!");
@@ -196,7 +196,7 @@ public class Robot1777 extends SimpleRobot implements Const {
 			while(isDisabled()) getWatchdog().feed();
 	}
 
-	public void updateCamera() {
+	public void initCamera() {
 
 			cam.writeBrightness(50);
 			cam.writeRotation(AxisCamera.RotationT.k180);
