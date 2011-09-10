@@ -41,9 +41,10 @@ public class Drive implements Const {
 	double rearRight = 0.0;
 	double max = 0.0;
     static double minimumJoystickValue = 0.2;
+    Robot1777 r;
 	
-	public Drive() {
-
+	public Drive(Robot1777 r) {
+    	this.r = r;
 	}
 	
 	void setSpeed(double fL, double fR, double rL, double rR) {
@@ -60,6 +61,10 @@ public class Drive implements Const {
 		rearLeft   = setDeadZone(Y) + setDeadZone(Z) - setDeadZone(X);
 		rearRight  = setDeadZone(Y) - setDeadZone(Z) + setDeadZone(X);
 
+		r.uM.write(3, "X: " + roundDecimals(setDeadZone(X)) +
+				   " | Y: " + roundDecimals(setDeadZone(Y)) +
+				   " | Z: " + roundDecimals(setDeadZone(Z)));
+
 		max = Math.abs(frontLeft);
 		if(Math.abs(frontRight) > max) max = Math.abs(frontRight);
 		if(Math.abs(rearLeft) > max) max = Math.abs(rearLeft);
@@ -67,7 +72,10 @@ public class Drive implements Const {
 		if(max > 1) { frontLeft /= max; frontRight /= max; rearLeft /= max; rearRight /= max; }
 		
 		setSpeed(frontLeft, frontRight, rearLeft, rearRight);
-		
+	}
+	
+	private double roundDecimals(double d) {
+		return Math.ceil( d * 1000.0 ) / 1000.0;
 	}
 	
 	private double setDeadZone(double x) {

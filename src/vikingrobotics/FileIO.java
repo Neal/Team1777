@@ -39,6 +39,7 @@ import javax.microedition.io.Connector;
  * @author Kevin Wang
  */
 public class FileIO {
+	
 	private static StringBuffer log = new StringBuffer("");
 
 	/**

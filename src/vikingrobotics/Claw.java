@@ -33,21 +33,21 @@ import edu.wpi.first.wpilibj.Relay;
 public class Claw implements Const {
 
 	Relay claw = new Relay(CLAW_SLOT, Relay.Direction.kBoth);
-	UserMessages uM = new UserMessages();
+	Robot1777 r;
 
-	public Claw() {
-
+	public Claw(Robot1777 r) {
+		this.r = r;
 	}
 	
-	void open() {
+	public void open() {
 
-		uM.write(6, "Claw: OPEN");
+		r.uM.write(6, "Claw: OPEN");
 		claw.set(Relay.Value.kForward);
 	}
 	
-	void close() {
+	public void close() {
 
-		uM.write(6, "Claw: CLOSE");
+		r.uM.write(6, "Claw: CLOSE");
 		claw.set(Relay.Value.kReverse);
 	}
 

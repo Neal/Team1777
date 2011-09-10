@@ -61,26 +61,29 @@ public class Robot1777 extends SimpleRobot implements Const {
 
 			// Yeah, I know I need to organise this a little -- who care, it works :P
 			System.out.println("\nBooting up...\nLoading essentials..."); // Don't worry, this is just for debug (to know when it reaches here)
-			claw = new Claw();
+			
 			arm = new Arm(this);
-			drive = new Drive();
-			uM = new UserMessages();
+			claw = new Claw(this);
+			drive = new Drive(this);
+			uM = new UserMessages(this);
 			autonomous = new Autonomous(this);
 			compressor = new Compressorr(this);
 			LineSensors = new LineSensors(this);
+			
 			camServo = new Servo(CAM_SERVO);
 			gyro = new Gyro(GYRO_SLOT, GYRO_CHANNEL);
 			joystick1 = new Joystick(JOYSTICK1);
 			joystick2 = new Joystick(JOYSTICK2);
 			joystick3 = new Joystick(JOYSTICK3);
 			joystick4 = new Joystick(JOYSTICK4);
+			
 			AxisCamera.getInstance();
 			Watchdog.getInstance();
 			SmartDashboard.init();
 			initCamera();
-			getWatchdog().setExpiration(0.2);
+			uM.init();
+			
 			System.out.println("Robot Ready!\n\n");
-			uM.write(1, "Robot Ready!");
 	}
 
 
@@ -163,7 +166,7 @@ public class Robot1777 extends SimpleRobot implements Const {
 					
 
 					// Gyro Code
-					gyroAngle = (int) gyro.getAngle();				// All this works if you have a gyro plugged in.
+					gyroAngle = (int) gyro.getAngle();			// All this works if you have a gyro plugged in.
 					if(joystick1.getRawButton(10)) gyro.reset();
 					if(gyroAngle >= 360) gyro.reset();
 					if(gyroAngle <=-360) gyro.reset();
