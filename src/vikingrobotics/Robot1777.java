@@ -35,21 +35,18 @@ import edu.wpi.first.wpilibj.camera.AxisCamera;
 public class Robot1777 extends SimpleRobot implements Const {
 
 	Arm arm;
-	Claw claw;
-	Gyro gyro;
-	Drive drive;
-	Servo camServo;
+	Autonomous autonomous;
 	AxisCamera cam;
+	Claw claw;
+	Compressorr compressor;
+	Drive drive;
+	Gyro gyro;
+	Joystick joystick1, joystick2, joystick3, joystick4;
+	LineSensors LineSensors;
+	Servo camServo;
+	SmartDashboard smartDB;
 	UserMessages uM;
 	Watchdog watchdog;
-	Joystick joystick1;
-	Joystick joystick2;
-	Joystick joystick3;
-	Joystick joystick4;
-	Autonomous autonomous;
-	SmartDashboard smartDB;
-	Compressorr compressor;
-	LineSensors LineSensors;
 
 
 	/**
@@ -140,11 +137,11 @@ public class Robot1777 extends SimpleRobot implements Const {
 					// Camera Code
 					if(joystick2.getRawButton(9) || joystick1.getRawButton(11))
 					{
-						camServo.setAngle(180);
+						camServo.setAngle(camServo.getAngle() - 2);
 					}
-					if(joystick2.getRawButton(10) || joystick1.getRawButton(12)) // Not sure if we even need this.
+					if(joystick2.getRawButton(10) || joystick1.getRawButton(12))
 					{
-						camServo.setAngle(0);
+						camServo.setAngle(camServo.getAngle() + 2);
 					}
 
 					
