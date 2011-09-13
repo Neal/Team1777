@@ -24,8 +24,12 @@
 
 package vikingrobotics;
 
-import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.Timer;
 
+/**
+ * @author Neal
+ *
+ */
 public class Autonomous implements Constants {
 	
 	Robot1777 r;

@@ -26,6 +26,10 @@ package vikingrobotics;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 
+/**
+ * @author Neal
+ *
+ */
 public class LineSensors implements Constants {
 
 	Robot1777 r;

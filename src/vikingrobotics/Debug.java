@@ -24,7 +24,6 @@
 
 package vikingrobotics;
 
-
 /**
  * @author Neal
  *

@@ -24,6 +24,10 @@
 
 package vikingrobotics;
 
+/**
+ * @author Neal
+ *
+ */
 public class RobotDrive extends edu.wpi.first.wpilibj.RobotDrive {
 
 	public RobotDrive(int frontLeftMotor, int rearLeftMotor,
