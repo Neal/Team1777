@@ -30,7 +30,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
  * @author Neal
  *
  */
-public class Arm implements Const {
+public class Arm implements Constants {
 
 	Robot1777 r;
 	RobotDrive arm = new RobotDrive(ARM_SLOT, ARM_DUMMY_SLOT);

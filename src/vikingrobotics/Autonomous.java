@@ -26,7 +26,7 @@ package vikingrobotics;
 
 import edu.wpi.first.wpilibj.*;
 
-public class Autonomous implements Const {
+public class Autonomous implements Constants {
 	
 	Robot1777 r;
 	

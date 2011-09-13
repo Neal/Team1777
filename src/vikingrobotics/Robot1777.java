@@ -32,7 +32,7 @@ import edu.wpi.first.wpilibj.camera.AxisCamera;
  * @author Neal
  *
  */
-public class Robot1777 extends SimpleRobot implements Const {
+public class Robot1777 extends SimpleRobot implements Constants {
 
 	Arm arm;
 	Autonomous autonomous;

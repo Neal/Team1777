@@ -31,7 +31,7 @@ import edu.wpi.first.wpilibj.Relay;
  * @author Neal
  *
  */
-public class Compressorr implements Const {
+public class Compressorr implements Constants {
 
 	Robot1777 r;
 	Compressor compressor = new Compressor(COMPRESSOR_CHANNEL, COMPRESSOR_RELAY);

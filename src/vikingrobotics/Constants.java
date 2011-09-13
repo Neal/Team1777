@@ -24,31 +24,51 @@
 
 package vikingrobotics;
 
-import edu.wpi.first.wpilibj.Relay;
-
 /**
  * @author Neal
  *
  */
-public class Claw implements Constants {
+public interface Constants {
 
-	Relay claw = new Relay(CLAW_SLOT, Relay.Direction.kBoth);
-	Robot1777 r;
+	// Joysticks
+	public static final int JOYSTICK1			= 1;
+	public static final int JOYSTICK2			= 2;
+	public static final int JOYSTICK3			= 3;
+	public static final int JOYSTICK4			= 4;
 
-	public Claw(Robot1777 r) {
-		this.r = r;
-	}
-	
-	public void open() {
+	// Motor used with the camera
+	public static final int CAM_SERVO			= 9;
 
-		r.uM.write(6, "Claw: OPEN");
-		claw.set(Relay.Value.kForward);
-	}
-	
-	public void close() {
+	// The claw mechanism
+	public static final int CLAW_SLOT			= 4;
 
-		r.uM.write(6, "Claw: CLOSE");
-		claw.set(Relay.Value.kReverse);
-	}
+	// Motor used to the arm
+	public static final int ARM_SLOT			= 5;
+	public static final int ARM_DUMMY_SLOT		= 6;
+
+	// Drive motors
+	public static final int DRIVE_FRONT_LEFT	= 1;
+	public static final int DRIVE_FRONT_RIGHT	= 2;
+	public static final int DRIVE_REAR_LEFT		= 3;
+	public static final int DRIVE_REAR_RIGHT	= 4;
+
+	// Line sensors
+	public static final int LINESENSOR_LEFT		= 10;
+	public static final int LINESENSOR_MIDDLE	= 9;
+	public static final int LINESENSOR_RIGHT	= 8;
+
+	// Gyroscope slots
+	public static final int GYRO_SLOT			= 1;
+	public static final int GYRO_CHANNEL		= 1;
+
+	// Compressor slot
+	public static final int COMPRESSOR_CHANNEL	= 1;
+	public static final int COMPRESSOR_RELAY	= 1;
+
+	// Setting for debug mode
+	public static final boolean DEBUG_MODE = false;
+
+	// A boolean which is always true
+	public static final boolean tru = true;
 
 }

@@ -26,7 +26,7 @@ package vikingrobotics;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 
-public class LineSensors implements Const {
+public class LineSensors implements Constants {
 
 	Robot1777 r;
 	DigitalInput left = new DigitalInput(LINESENSOR_LEFT);

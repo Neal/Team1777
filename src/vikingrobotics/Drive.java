@@ -30,7 +30,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
  * @author Neal
  *
  */
-public class Drive implements Const {
+public class Drive implements Constants {
 
 //	RobotDrive drive12 = new RobotDrive(DRIVE_FRONT_LEFT, DRIVE_FRONT_RIGHT);
 //	RobotDrive drive34 = new RobotDrive(DRIVE_REAR_LEFT, DRIVE_REAR_RIGHT);

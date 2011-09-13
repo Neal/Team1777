@@ -29,7 +29,7 @@ package vikingrobotics;
  * @author Neal
  *
  */
-public class Debug implements Const {
+public class Debug implements Constants {
 
     /**
      * If in debug mode, prints specified string without a newline
