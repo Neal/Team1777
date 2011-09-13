@@ -53,12 +53,9 @@ public class Autonomous implements Const {
 
 			currentTime = Timer.getFPGATimestamp() - startTime;
 			
-			if(r.LineSensors.getL() == 0) atL = true;
-			else atL = false;
-			if(r.LineSensors.getM() == 0) atM = true;
-			else atM = false;
-			if(r.LineSensors.getR() == 0) atR = true;
-			else atR = false;
+			atL = r.LineSensors.atL();
+			atM = r.LineSensors.atM();
+			atR = r.LineSensors.atR();
 
 			r.LineSensors.printUM();
 
@@ -77,27 +74,27 @@ public class Autonomous implements Const {
 							if(atM) bRM = false;
 					}
 					else {
-							r.drive.setSpeed(d4, d4, d4, d4);
+							r.drive.setSpeed(d4, d4, d4, d4); // We should only get here if it doesn't know where it is, which most likely be when we start if they don't place it right.
 					}
 			}
 			else {
-				r.drive.stop();
+				r.drive.stop(); // Stop when we reach the 'T' unless we want to go hit the wall.
 			}
 
-			if(currentTime > 7 && currentTime < 12)
+			if(currentTime > 7 && currentTime < 12) // Move the arm up from 8th second till the 11th second.
 					r.arm.setSpeed(0.7);
 					
-			if(currentTime > 10 && currentTime < 14)
+			if(currentTime > 10 && currentTime < 14) // Go backwards after done to get a head start for tele-op.
 					r.drive.setSpeed(-0.6, -0.6, -0.6, -0.6);
 			
-			if(currentTime < 1.3 && currentTime > 0.1)
+			if(currentTime < 1.3 && currentTime > 0.1) // Need to match the time to make it perfect.
 					r.arm.setSpeed(-0.8);
 			else
 					r.arm.setSpeed(0.0);
 		}
 		
 		if(timeUp(currentTime)) {
-			r.drive.stop();
+			r.drive.stop(); // Stop when time is up.
 			r.arm.set(0);
 		}
 	}
