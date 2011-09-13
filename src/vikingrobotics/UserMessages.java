@@ -25,6 +25,7 @@
 package vikingrobotics;
 
 import edu.wpi.first.wpilibj.DriverStationLCD;
+import edu.wpi.first.wpilibj.DriverStationLCD.Line;
 
 /**
  * Prints the specified string on the User Messages section on the Driver Station.
@@ -36,55 +37,38 @@ public class UserMessages {
 	DriverStationLCD uM = DriverStationLCD.getInstance();
 	Robot1777 r;
 	
+    public static final Line[] line = {DriverStationLCD.Line.kMain6,
+        DriverStationLCD.Line.kUser2,
+        DriverStationLCD.Line.kUser3,
+        DriverStationLCD.Line.kUser4,
+        DriverStationLCD.Line.kUser5,
+        DriverStationLCD.Line.kUser6};
+	
+    
 	public UserMessages(Robot1777 r) {
 		this.r = r;
 	}
 
 	/**
 	 * Prints the specified string on the User Messages starting from the begining.
-	 * @param int Line number. Could be from 1 to 6.
+	 * @param lineNumber Line number. Could be from 1 to 6.
 	 * @param Message The message to be printed.
 	 */
-	public void write(int line, String Message) {
+	public void write(int lineNumber, String Message) {
 		
-		write(line, 1, Message);
+		write(lineNumber, 1, Message);
 	}
 
 	/**
 	 * Prints the specified string on the User Messages starting from the specified starting column.
-	 * @param int Line number. Could be from 1 to 6.
+	 * @param lineNumber Line number. Could be from 1 to 6.
 	 * @param start The starting column to use.
 	 * @param Message The message to be printed.
 	 */
-	public void write(int line, int start, String Message) {
-		
-		switch(line) {
-				case 1:
-					uM.println(DriverStationLCD.Line.kMain6, start, "                         ");
-					uM.println(DriverStationLCD.Line.kMain6, start, Message);
-					break;
-				case 2:
-					uM.println(DriverStationLCD.Line.kUser2, start, "                         ");
-					uM.println(DriverStationLCD.Line.kUser2, start, Message); 
-					break;
-				case 3:
-					uM.println(DriverStationLCD.Line.kUser3, start, "                         ");
-					uM.println(DriverStationLCD.Line.kUser3, start, Message); 
-					break;
-				case 4:
-					uM.println(DriverStationLCD.Line.kUser4, start, "                         ");
-					uM.println(DriverStationLCD.Line.kUser4, start, Message); 
-					break;
-				case 5:
-					uM.println(DriverStationLCD.Line.kUser5, start, "                         ");
-					uM.println(DriverStationLCD.Line.kUser5, start, Message); 
-					break;
-				case 6:
-					uM.println(DriverStationLCD.Line.kUser6, start, "                         ");
-					uM.println(DriverStationLCD.Line.kUser6, start, Message); 
-					break;
-		}
-		
+	public void write(int lineNumber, int start, String Message) {
+
+		uM.println(line[lineNumber-1], start, "                         ");
+		uM.println(line[lineNumber-1], start, Message);
 		uM.updateLCD();
 	}
 
