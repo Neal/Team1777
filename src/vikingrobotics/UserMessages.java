@@ -65,10 +65,10 @@ public class UserMessages {
 	 * @param start The starting column to use.
 	 * @param Message The message to be printed.
 	 */
-	public void write(int lineNumber, int start, String Message) {
+	public void write(int lineNumber, int startColumn, String Message) {
 
-		uM.println(line[lineNumber-1], start, "                         ");
-		uM.println(line[lineNumber-1], start, Message);
+		uM.println(line[lineNumber-1], startColumn, "                         ");
+		uM.println(line[lineNumber-1], startColumn, Message);
 		uM.updateLCD();
 	}
 
