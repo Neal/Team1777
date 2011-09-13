@@ -122,27 +122,24 @@ public class Robot1777 extends SimpleRobot implements Const {
 			int gyroAngle = 0;
 			boolean isTankDrive = false;
 
-			// Loop until it's in Operator Control mode in the driver station.
+			
 			while(isOperatorControl() && isEnabled()) {
 
-					getWatchdog().feed();
+					getWatchdog().feed();   // Damn watchdog gets hungry every 0.005 seconds.
 					LineSensors.printUM();
 					compressor.run();
 
 					
 					// Arm code
-					arm.set(joystick1.getY() * 0.75); // I love this new method for arm :D
+					arm.set(joystick1.getY() * 0.75); // I love this new method for arm :D (Hoping it works)
 
 					
 					// Camera Code
 					if(joystick2.getRawButton(9) || joystick1.getRawButton(11))
-					{
 						camServo.setAngle(camServo.getAngle() - 2);
-					}
+					
 					if(joystick2.getRawButton(10) || joystick1.getRawButton(12))
-					{
 						camServo.setAngle(camServo.getAngle() + 2);
-					}
 
 					
 					// Claw Code
@@ -163,7 +160,7 @@ public class Robot1777 extends SimpleRobot implements Const {
 					
 
 					// Gyro Code
-					gyroAngle = (int) gyro.getAngle();			// All this works if you have a gyro plugged in.
+					gyroAngle = (int) gyro.getAngle();            // All this works if you have a gyro plugged in.
 					if(joystick1.getRawButton(10)) gyro.reset();
 					if(gyroAngle >= 360) gyro.reset();
 					if(gyroAngle <=-360) gyro.reset();
@@ -171,11 +168,10 @@ public class Robot1777 extends SimpleRobot implements Const {
 					
 
 					// Driving Code
-					if (isTankDrive) {
+					if(isTankDrive)
 						drive.tankDrive(joystick1.getRawAxis(2), joystick1.getRawAxis(5));
-					} else {
+					else
 						drive.mecanumDrive(joystick1.getX(), -joystick1.getY(), -joystick1.getZ() * 0.95);
-					}
 					
 
 					Timer.delay(0.005);
@@ -196,6 +192,7 @@ public class Robot1777 extends SimpleRobot implements Const {
 			while(isDisabled()) getWatchdog().feed();
 	}
 
+	
 	public void initCamera() {
 
 			cam.writeBrightness(50);

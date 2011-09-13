@@ -64,23 +64,19 @@ public class Autonomous implements Const {
 
 			if(!r.LineSensors.atCross()) {
 				
-					if(atL || bLM)
-					{
+					if(atL || bLM) {
 							r.drive.setSpeed(d2, d1, d2, d1);  bLM = true;
 							if(atM) bLM = false;
 					}
-					else if (atM || bLR)
-					{
+					else if (atM || bLR) {
 							r.drive.setSpeed(d3, d3, d3, d3);  bLR = true;
 							if(atL || atR) bLR = false;
 					}
-					else if (atR || bRM)
-					{
+					else if (atR || bRM) {
 							r.drive.setSpeed(d1, d2, d1, d2);  bRM = true;
 							if(atM) bRM = false;
 					}
-					else
-					{
+					else {
 							r.drive.setSpeed(d4, d4, d4, d4);
 					}
 			}
@@ -89,18 +85,15 @@ public class Autonomous implements Const {
 			}
 
 			if(currentTime > 7 && currentTime < 12)
-			{
 					r.arm.setSpeed(0.7);
-			}
+					
 			if(currentTime > 10 && currentTime < 14)
-			{
 					r.drive.setSpeed(-0.6, -0.6, -0.6, -0.6);
-			}
-			if(currentTime < 1.3 && currentTime > 0.1) {
+			
+			if(currentTime < 1.3 && currentTime > 0.1)
 					r.arm.setSpeed(-0.8);
-			} else {
+			else
 					r.arm.setSpeed(0.0);
-			}
 		}
 		
 		if(timeUp(currentTime)) {
