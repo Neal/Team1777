@@ -62,7 +62,7 @@ public class UserMessages {
 	/**
 	 * Prints the specified string on the User Messages starting from the specified starting column.
 	 * @param lineNumber Line number. Could be from 1 to 6.
-	 * @param start The starting column to use.
+	 * @param startColumn The starting column to use.
 	 * @param Message The message to be printed.
 	 */
 	public void write(int lineNumber, int startColumn, String Message) {
@@ -78,9 +78,9 @@ public class UserMessages {
 		write(1, 1, "Robot Ready!");
 	}
 
-	public void clear(int line) {
+	public void clear(int lineNumber) {
 		
-		write(line, 1, "");
+		write(lineNumber, 1, "");
 	}
 	
 	public void clearAll() {
