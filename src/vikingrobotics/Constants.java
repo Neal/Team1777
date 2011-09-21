@@ -66,7 +66,7 @@ public interface Constants {
 	public static final int COMPRESSOR_RELAY = 1;
 
 	// Setting for debug mode
-	public static final boolean DEBUG_MODE = false;
+	public static final boolean DEBUG_MODE = true;
 
 	// A boolean which is always true
 	public static final boolean tru = true;

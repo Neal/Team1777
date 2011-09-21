@@ -32,64 +32,51 @@ import edu.wpi.first.wpilibj.RobotDrive;
  */
 public class Drive implements Constants {
 
-//	RobotDrive drive12 = new RobotDrive(DRIVE_FRONT_LEFT, DRIVE_FRONT_RIGHT);
-//	RobotDrive drive34 = new RobotDrive(DRIVE_REAR_LEFT, DRIVE_REAR_RIGHT);
-	vikingrobotics.RobotDrive drive = (vikingrobotics.RobotDrive) new RobotDrive(1, 3, 2, 4); // Will conflic with drive12 and drive34 while compile; comment either one.
-	double frontLeft = 0.0;
-	double frontRight = 0.0;
-	double rearLeft = 0.0;
-	double rearRight = 0.0;
-	double max = 0.0;
-    static double minimumJoystickValue = 0.2;
-    Robot1777 r;
+	vikingrobotics.RobotDrive drive = (vikingrobotics.RobotDrive) new RobotDrive(DRIVE_FRONT_LEFT, DRIVE_REAR_LEFT, DRIVE_FRONT_RIGHT, DRIVE_REAR_RIGHT);
+	double frontLeft = 0.0, frontRight = 0.0, rearLeft = 0.0, rearRight = 0.0, max = 0.0;
+	static double minimumJoystickValue = 0.2;
+	Robot1777 r;
 	
 	public Drive(Robot1777 r) {
     	this.r = r;
 	}
 	
 	void setSpeed(double fL, double fR, double rL, double rR) {
-		
-//		drive12.tankDrive(fL, fR);
-//		drive34.tankDrive(rL, rR);
+
 		drive.setSpeed(fL, fR, rL, rR);
 	}
 	
 	public void mecanumDrive(double X, double Y, double Z) {
 
-		frontLeft  = setDeadZone(Y) + setDeadZone(Z) + setDeadZone(X);
-		frontRight = setDeadZone(Y) - setDeadZone(Z) - setDeadZone(X);
-		rearLeft   = setDeadZone(Y) + setDeadZone(Z) - setDeadZone(X);
-		rearRight  = setDeadZone(Y) - setDeadZone(Z) + setDeadZone(X);
+		frontLeft  = deadZone(Y) + deadZone(Z) + deadZone(X);
+		frontRight = deadZone(Y) - deadZone(Z) - deadZone(X);
+		rearLeft   = deadZone(Y) + deadZone(Z) - deadZone(X);
+		rearRight  = deadZone(Y) - deadZone(Z) + deadZone(X);
 
-		r.uM.write(3, "X: " + roundDecimals(setDeadZone(X)) +
-				   " | Y: " + roundDecimals(setDeadZone(Y)) +
-				   " | Z: " + roundDecimals(setDeadZone(Z)));
+		r.uM.write(3, "X: " + roundDecimals(deadZone(X)) +
+				   " | Y: " + roundDecimals(deadZone(Y)) +
+				   " | Z: " + roundDecimals(deadZone(Z)));
 
+		
 		max = Math.abs(frontLeft);
-		if(Math.abs(frontRight) > max) max = Math.abs(frontRight);
-		if(Math.abs(rearLeft) > max) max = Math.abs(rearLeft);
-		if(Math.abs(rearRight) > max) max = Math.abs(rearRight);
-		if(max > 1) { frontLeft /= max; frontRight /= max; rearLeft /= max; rearRight /= max; }
+		
+		if(Math.abs(frontRight) > max)
+			max = Math.abs(frontRight);
+		
+		if(Math.abs(rearLeft) > max)
+			max = Math.abs(rearLeft);
+		
+		if(Math.abs(rearRight) > max)
+			max = Math.abs(rearRight);
+		
+		if(max > 1) { 
+			frontLeft /= max;
+			frontRight /= max;
+			rearLeft /= max;
+			rearRight /= max;
+		}
 		
 		setSpeed(frontLeft, frontRight, rearLeft, rearRight);
-	}
-	
-	private double roundDecimals(double d) {
-		return Math.ceil( d * 1000.0 ) / 1000.0;
-	}
-	
-	private double setDeadZone(double x) {
-		
-		if (Math.abs(x) < minimumJoystickValue) {
-			return 0;
-		}
-		
-		double scaledSlope = 1 / (1 - minimumJoystickValue);
-		
-		if (x > 0) {
-			return (x - minimumJoystickValue) * scaledSlope;
-		}
-		return (x + minimumJoystickValue) * scaledSlope;
 	}
 	
 	void tankDrive(double leftStick, double rightStick) {
@@ -99,6 +86,18 @@ public class Drive implements Constants {
 	
 	void stop() {
 		setSpeed(0, 0, 0, 0);
+	}
+	
+	private double roundDecimals(double d) {
+		return Math.ceil(d * 1000.0) / 1000.0;
+	}
+	
+	private double deadZone(double x) {
+		
+		if (Math.abs(x) < minimumJoystickValue) return 0;
+		double scaledSlope = 1 / (1 - minimumJoystickValue);
+		if (x > 0) return (x - minimumJoystickValue) * scaledSlope;
+		return (x + minimumJoystickValue) * scaledSlope;
 	}
 
 }

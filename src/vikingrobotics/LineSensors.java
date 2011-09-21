@@ -52,16 +52,6 @@ public class LineSensors implements Constants {
 		r.uM.write(6, 9, " | " + rightValue);
 	}
 	
-	void printUM2() {
-
-		if      (!left.get())   { r.uM.write(3, 1, "1"); }
-		else if (left.get())    { r.uM.write(3, 1, "0"); }
-		if      (!middle.get()) { r.uM.write(3, 5, "1"); }
-		else if (middle.get())  { r.uM.write(3, 5, "0"); }
-		if      (!right.get())  { r.uM.write(3, 9, "1"); }
-		else if (right.get())   { r.uM.write(3, 9, "0"); }
-	}
-	
 	public int getL() {
 		return left.get() ? 1 : 0;
 	}

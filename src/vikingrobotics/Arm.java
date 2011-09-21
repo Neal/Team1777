@@ -61,31 +61,25 @@ public class Arm implements Constants {
 	 */
 	public void set(double speed) {
 
-		setSpeed(setDeadZone(speed));
+		setSpeed(deadZone(speed));
 		
-		if(setDeadZone(speed) < 0) {
+		if(deadZone(speed) < 0) {
 			r.uM.write(5, "Arm: Moving Upwards");
 		}
-		else if(setDeadZone(speed) > 0) {
+		else if(deadZone(speed) > 0) {
 			r.uM.write(5, "Arm: Moving Downwards");
 		}
-		if(setDeadZone(speed) == 0) {
+		if(deadZone(speed) == 0) {
 			r.uM.write(5, "Arm: Not moving");
 		}
 	}
-
 	
-	private double setDeadZone(double x) {
-		
-		if (Math.abs(x) < minimumJoystickValue) {
-			return 0;
-		}
-		
-		double scaledSlope = 1 / (1 - minimumJoystickValue);
+	
+	private double deadZone(double x) {
 
-		if (x > 0) {
-			return (x - minimumJoystickValue) * scaledSlope;
-		}
+		if (Math.abs(x) < minimumJoystickValue) return 0;
+		double scaledSlope = 1 / (1 - minimumJoystickValue);
+		if (x > 0) return (x - minimumJoystickValue) * scaledSlope;
 		return (x + minimumJoystickValue) * scaledSlope;
 	}
 

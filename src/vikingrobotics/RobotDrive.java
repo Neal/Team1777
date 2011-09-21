@@ -35,12 +35,12 @@ public class RobotDrive extends edu.wpi.first.wpilibj.RobotDrive {
 		super(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
 	}
 
-	public void setSpeed(double fL, double fR, double rL, double rR) {
+	public void setSpeed(double frontLeft, double frontRear, double rearLeft, double rearRight) {
 		
-		m_frontLeftMotor.set(fL);
-		m_frontRightMotor.set(fR);
-		m_rearLeftMotor.set(rL);
-		m_rearRightMotor.set(rR);
+		m_frontLeftMotor.set(frontLeft);
+		m_frontRightMotor.set(frontRear);
+		m_rearLeftMotor.set(rearLeft);
+		m_rearRightMotor.set(rearRight);
 	}
 
 }
