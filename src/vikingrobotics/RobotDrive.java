@@ -30,32 +30,32 @@ package vikingrobotics;
  */
 public class RobotDrive extends edu.wpi.first.wpilibj.RobotDrive {
 
-    /**
-     * Constructor for RobotDrive with 4 motors specified with channel numbers.
-     * Set up parameters for a four wheel drive system where all four motor
-     * pwm channels are specified in the call.
-     * This call assumes Jaguars for controlling the motors.
-     * @param frontLeftMotor Front left motor channel number on the default digital module
-     * @param rearLeftMotor Rear Left motor channel number on the default digital module
-     * @param frontRightMotor Front right motor channel number on the default digital module
-     * @param rearRightMotor Rear Right motor channel number on the default digital module
-     */
+	/**
+	 * Constructor for RobotDrive with 4 motors specified with channel numbers.
+	 * Set up parameters for a four wheel drive system where all four motor
+	 * pwm channels are specified in the call.
+	 * This call assumes Jaguars for controlling the motors.
+	 * @param frontLeftMotor Front left motor channel number on the default digital module
+	 * @param rearLeftMotor Rear Left motor channel number on the default digital module
+	 * @param frontRightMotor Front right motor channel number on the default digital module
+	 * @param rearRightMotor Rear Right motor channel number on the default digital module
+	 */
 	public RobotDrive(int frontLeftMotor, int rearLeftMotor,
 			int frontRightMotor, int rearRightMotor) {
 		super(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
 	}
 
 
-    /** 
-     * Set the speed of all the 4 motors.
-     * This is used once an appropriate drive setup function is called such as
-     * mecanumDrive().
-     * 
-     * @param frontLeft Value for the Front left motor
-     * @param frontRight Value for the Front Right motor 
-     * @param rearLeft Value for the Rear Left motor
-     * @param rearRight Value for the Rear Right motor
-     */
+	/** 
+	 * Set the speed of all the 4 motors.
+	 * This is used once an appropriate drive setup function is called such as
+	 * mecanumDrive().
+	 * 
+	 * @param frontLeft Value for the Front left motor
+	 * @param frontRight Value for the Front Right motor 
+	 * @param rearLeft Value for the Rear Left motor
+	 * @param rearRight Value for the Rear Right motor
+	 */
 	public void setSpeed(double frontLeft, double frontRight, double rearLeft, double rearRight) {
 		
 		m_frontLeftMotor.set(frontLeft);
