@@ -37,12 +37,12 @@ public class UserMessages {
 	DriverStationLCD uM = DriverStationLCD.getInstance();
 	Robot1777 r;
 	
-    public static final Line[] line = {DriverStationLCD.Line.kMain6,
-        DriverStationLCD.Line.kUser2,
-        DriverStationLCD.Line.kUser3,
-        DriverStationLCD.Line.kUser4,
-        DriverStationLCD.Line.kUser5,
-        DriverStationLCD.Line.kUser6};
+	public static final Line[] line = {DriverStationLCD.Line.kMain6,
+		DriverStationLCD.Line.kUser2,
+		DriverStationLCD.Line.kUser3,
+		DriverStationLCD.Line.kUser4,
+		DriverStationLCD.Line.kUser5,
+		DriverStationLCD.Line.kUser6};
 	
 
 	/**

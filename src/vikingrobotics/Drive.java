@@ -42,37 +42,37 @@ public class Drive implements Constants {
 	 * 
 	 */
 	public Drive(Robot1777 r) {
-    	this.r = r;
+		this.r = r;
 	}
 	
-    /**
-     * Set the speed of all the motors.
-     * This is used once an appropriate drive setup function is called such as
-     * mecanumDrive().
-     * 
-     * @param fL Value for the front left motor.
-     * @param fR Value for the front right motor.
-     * @param rL Value for the rear left motor.
-     * @param rR Value for the rear right motor.
-     */
+	/**
+	 * Set the speed of all the motors.
+	 * This is used once an appropriate drive setup function is called such as
+	 * mecanumDrive().
+	 * 
+	 * @param fL Value for the front left motor.
+	 * @param fR Value for the front right motor.
+	 * @param rL Value for the rear left motor.
+	 * @param rR Value for the rear right motor.
+	 */
 	void setSpeed(double fL, double fR, double rL, double rR) {
 
 		drive.setSpeed(fL, fR, rL, rR);
 	}
 	
-    /**
-     * Drive method for Mecanum wheeled robots.
-     *
-     * A method for driving with Mecanum wheeled robots. There are 4 wheels
-     * on the robot, arranged so that the front and back wheels are toed in 45 degrees.
-     * When looking at the wheels from the top, the roller axles should form an X across the robot.
-     *
-     * This is designed to be directly driven by joystick axes.
-     *
-     * @param X X value from the joystick. [-1.0..1.0]
-     * @param Y Y value from the joystick. [-1.0..1.0]
-     * @param Z Z value from the joystick. [-1.0..1.0]
-     */
+	/**
+	 * Drive method for Mecanum wheeled robots.
+	 *
+	 * A method for driving with Mecanum wheeled robots. There are 4 wheels
+	 * on the robot, arranged so that the front and back wheels are toed in 45 degrees.
+	 * When looking at the wheels from the top, the roller axles should form an X across the robot.
+	 *
+	 * This is designed to be directly driven by joystick axes.
+	 *
+	 * @param X X value from the joystick. [-1.0..1.0]
+	 * @param Y Y value from the joystick. [-1.0..1.0]
+	 * @param Z Z value from the joystick. [-1.0..1.0]
+	 */
 	public void mecanumDrive(double X, double Y, double Z) {
 
 		frontLeft  = deadZone(Y) + deadZone(Z) + deadZone(X);
@@ -106,11 +106,11 @@ public class Drive implements Constants {
 		setSpeed(frontLeft, frontRight, rearLeft, rearRight);
 	}
 	
-    /**
-     * Provide tank steering using the stored robot configuration.
-     * @param leftStick The value of the left stick.
-     * @param rightStick The value of the right stick.
-     */
+	/**
+	 * Provide tank steering using the stored robot configuration.
+	 * @param leftStick The value of the left stick.
+	 * @param rightStick The value of the right stick.
+	 */
 	void tankDrive(double leftStick, double rightStick) {
 		
 		drive.tankDrive(leftStick, rightStick);
