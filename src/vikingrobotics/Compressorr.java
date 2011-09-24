@@ -35,6 +35,7 @@ public class Compressorr implements Constants {
 
 	Robot1777 r;
 	Compressor compressor = new Compressor(COMPRESSOR_CHANNEL, COMPRESSOR_RELAY);
+	private boolean forceCompressorOff = false;
 	
 	/**
 	 * Compressorr constructor
@@ -51,13 +52,19 @@ public class Compressorr implements Constants {
 	 */
 	void run() {
 
-		if(!compressor.getPressureSwitchValue()) {
+		if(!forceCompressorOff) {
+			if(!compressor.getPressureSwitchValue()) {
 				r.uM.write(4, "Compressor: Enabled");
 				compressor.setRelayValue(Relay.Value.kForward);
-		}
-		else if(compressor.getPressureSwitchValue()) {
+			}
+			else if(compressor.getPressureSwitchValue()) {
 				r.uM.write(4, "Compressor: Disabled");
 				compressor.setRelayValue(Relay.Value.kOff);
+			}
+		}
+		else {
+			r.uM.write(4, "Compressor: Force stopped.");
+			compressor.stop();
 		}
 	}
 	
@@ -66,7 +73,8 @@ public class Compressorr implements Constants {
 	 * 
 	 */
 	void start() {
-		compressor.start();
+		if(!forceCompressorOff)
+			compressor.start();
 	}
 	
 	/**
@@ -74,7 +82,28 @@ public class Compressorr implements Constants {
 	 * 
 	 */
 	void stop() {
+		if(!forceCompressorOff)
+			compressor.stop();
+	}
+	
+	/**
+	 * Force stop the compressor. This method changes the boolean forceCompressorOff to true.
+	 * 
+	 */
+	void forceStop() {
+		forceCompressorOff = true;
+		r.uM.write(4, "Compressor: Force stopped.");
 		compressor.stop();
+	}
+	
+	/**
+	 * Turn on compressor from Force stop. This method changes the boolean forceCompressorOff to false.
+	 * 
+	 */
+	void forceStart() {
+		forceCompressorOff = false;
+		r.uM.write(4, "Compressor: Force started.");
+		this.run();
 	}
 
 }
