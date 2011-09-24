@@ -87,8 +87,8 @@ public class Debug implements Constants {
     }
 
     /**
-     * True if in debug mode, false otherwise.
-     * @return state
+     * Returns true if in debug mode, false otherwise.
+     * @return DEBUG_MODE
      */
     public static boolean getMode() {
         return DEBUG_MODE;

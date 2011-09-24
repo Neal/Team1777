@@ -44,10 +44,18 @@ public class Autonomous implements Constants {
 	
 	double startTime = 0;
 	
+	/**
+	 * Autonomous constructor
+	 * 
+	 */
 	public Autonomous(Robot1777 r) {
 		this.r = r;
 	}
 	
+	/**
+	 * The main autonomous mode.
+	 * 
+	 */
 	public void run() {
 
 		double startTime = Timer.getFPGATimestamp();
@@ -103,6 +111,11 @@ public class Autonomous implements Constants {
 		}
 	}
 	
+	/**
+	 * Know if the time is up for autonomous or not.
+	 * @param s Current time.
+	 * @return true is time is up, false otherwise.
+	 */
 	private boolean timeUp(double s) {
 		return s >= 15.00 ? true : false;
 	}

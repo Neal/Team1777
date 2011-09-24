@@ -25,7 +25,6 @@
 package vikingrobotics;
 
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.camera.AxisCamera;
 
 
 /**
@@ -36,7 +35,7 @@ public class Robot1777 extends SimpleRobot implements Constants {
 
 	Arm arm;
 	Autonomous autonomous;
-	AxisCamera cam;
+	Camera cam;
 	Claw claw;
 	Compressorr compressor;
 	Drive drive;
@@ -61,6 +60,7 @@ public class Robot1777 extends SimpleRobot implements Constants {
 			
 			arm = new Arm(this);
 			claw = new Claw(this);
+			cam = new Camera(this);
 			drive = new Drive(this);
 			uM = new UserMessages(this);
 			autonomous = new Autonomous(this);
@@ -74,10 +74,10 @@ public class Robot1777 extends SimpleRobot implements Constants {
 			joystick3 = new Joystick(JOYSTICK3);
 			joystick4 = new Joystick(JOYSTICK4);
 			
-			AxisCamera.getInstance();
 			Watchdog.getInstance();
 			SmartDashboard.init();
-			initCamera();
+			LineSensors.printUM();
+			cam.init();
 			uM.init();
 			
 			System.out.println("Robot Ready!\n\n");
@@ -131,7 +131,7 @@ public class Robot1777 extends SimpleRobot implements Constants {
 
 					
 					// Arm code
-					arm.set(joystick1.getY() * 0.75); // I love this new method for arm :D (Hoping it works)
+					arm.set(joystick1.getRawAxis(4) * 0.75); // I love this new method for arm :D (Hoping it works)
 
 					
 					// Camera Code
@@ -143,17 +143,11 @@ public class Robot1777 extends SimpleRobot implements Constants {
 
 					
 					// Claw Code
-					if(joystick2.getRawButton(1) ||
-					   joystick1.getRawButton(1) ||
-					   joystick2.getRawButton(3) ||
-					   joystick1.getRawButton(3)) {
+					if(joystick1.getRawButton(1) || joystick2.getRawButton(1) || joystick1.getRawButton(3) || joystick2.getRawButton(3)) {
 						
 						claw.open();
 					}
-					if(joystick2.getRawButton(2) ||
-					   joystick1.getRawButton(2) ||
-					   joystick2.getRawButton(4) ||
-					   joystick1.getRawButton(4)) {
+					if(joystick1.getRawButton(2) || joystick2.getRawButton(2) || joystick1.getRawButton(4) || joystick2.getRawButton(4)) {
 
 						claw.close();
 					}
@@ -161,7 +155,7 @@ public class Robot1777 extends SimpleRobot implements Constants {
 
 					// Gyro Code
 					gyroAngle = (int) gyro.getAngle();            // All this works if you have a gyro plugged in.
-					if(joystick1.getRawButton(10)) gyro.reset();
+					if(joystick1.getRawButton(10)) gyro.reset();  // But unfortunately we never did that.
 					if(gyroAngle >= 360) gyro.reset();
 					if(gyroAngle <=-360) gyro.reset();
 					uM.write(5, 13, " | " + gyroAngle);
@@ -192,15 +186,4 @@ public class Robot1777 extends SimpleRobot implements Constants {
 			while(isDisabled()) getWatchdog().feed();
 	}
 
-	
-	public void initCamera() {
-
-			cam.writeBrightness(50);
-			cam.writeRotation(AxisCamera.RotationT.k180);
-			cam.writeResolution(AxisCamera.ResolutionT.k640x480);
-			cam.writeWhiteBalance(AxisCamera.WhiteBalanceT.automatic);
-			cam.writeExposureControl(AxisCamera.ExposureT.automatic);
-			cam.writeExposurePriority(AxisCamera.ExposurePriorityT.frameRate);
-	}
-	
 }

@@ -37,10 +37,19 @@ public class LineSensors implements Constants {
 	DigitalInput middle = new DigitalInput(LINESENSOR_MIDDLE);
 	DigitalInput right = new DigitalInput(LINESENSOR_RIGHT);
 	
+
+	/**
+	 * LineSensors constructor
+	 * 
+	 */
 	public LineSensors(Robot1777 r) {
 		this.r = r;
 	}
 	
+	/**
+	 * Prints all 3 line sensors' value on User Messages on the same line.
+	 * 
+	 */
 	void printUM() {
 
 		int leftValue = left.get() ? 1 : 0;
@@ -51,47 +60,91 @@ public class LineSensors implements Constants {
 		r.uM.write(6, 5, " | " + middleValue);
 		r.uM.write(6, 9, " | " + rightValue);
 	}
-	
+
+	/**
+	 * Returns the value of left line sensor in int.
+	 * @return
+	 */
 	public int getL() {
 		return left.get() ? 1 : 0;
 	}
-	
+
+	/**
+	 * Returns the value of middle line sensor in int.
+	 * @return
+	 */
 	public int getM() {
 		return middle.get() ? 1 : 0;
 	}
-	
+
+	/**
+	 * Returns the value of right line sensor in int.
+	 * @return
+	 */
 	public int getR() {
 		return right.get() ? 1 : 0;
 	}
-	
+
+	/**
+	 * Returns true if left line sensor is on, false otherwise.
+	 * @return
+	 */
 	public boolean atL() {
 		return left.get();
 	}
-	
+
+	/**
+	 * Returns true if middle line sensor is on, false otherwise.
+	 * @return
+	 */
 	public boolean atM() {
 		return middle.get();
 	}
-	
+
+	/**
+	 * Returns true if right line sensor is on, false otherwise.
+	 * @return
+	 */
 	public boolean atR() {
 		return right.get();
 	}
-	
+
+	/**
+	 * Returns true if left, middle and right line sensors are on, false otherwise.
+	 * @return
+	 */
 	public boolean atLMR() {
 		return left.get() && middle.get() && right.get();
 	}
-	
+
+	/**
+	 * Returns true if left and middle line sensors are on, false otherwise.
+	 * @return
+	 */
 	public boolean atLM() {
 		return left.get() && middle.get();
 	}
-	
+
+	/**
+	 * Returns true if middle and right line sensors are on, false otherwise.
+	 * @return
+	 */
 	public boolean atMR() {
 		return middle.get() && right.get();
 	}
 	
+	/**
+	 * Returns true if left and right line sensors are on, false otherwise.
+	 * @return
+	 */
 	public boolean atLR() {
 		return left.get() && right.get();
 	}
 	
+	/**
+	 * Returns true if all 3 line sensors light up (at cross), false otherwise.
+	 * @return value
+	 */
 	public boolean atCross() {
 		if((atLMR()) || (atLM()) || (atMR())) {
 			return true;

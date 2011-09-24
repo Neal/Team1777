@@ -35,16 +35,28 @@ public class Claw implements Constants {
 	Relay claw = new Relay(CLAW_SLOT, Relay.Direction.kBoth);
 	Robot1777 r;
 
+	/**
+	 * Claw constructor
+	 * 
+	 */
 	public Claw(Robot1777 r) {
 		this.r = r;
 	}
-	
+
+	/**
+	 * Open claw and update User Messages.
+	 * 
+	 */
 	public void open() {
 
 		r.uM.write(6, "Claw: OPEN");
 		claw.set(Relay.Value.kForward);
 	}
 	
+	/**
+	 * Close claw and update User Messages.
+	 * 
+	 */
 	public void close() {
 
 		r.uM.write(6, "Claw: CLOSE");

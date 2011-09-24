@@ -34,13 +34,15 @@ public class Arm implements Constants {
 
 	Robot1777 r;
 	RobotDrive arm = new RobotDrive(ARM_SLOT, ARM_DUMMY_SLOT);
-//	Jaguar a = new Jaguar(5);
 	static double minimumJoystickValue = 0.2;
 
+	/**
+	 * Arm constructor
+	 * 
+	 */
 	public Arm(Robot1777 r) {
 		this.r = r;
 	}
-
 	
 	/**
 	 * Sets the speed for the arm.
@@ -48,13 +50,9 @@ public class Arm implements Constants {
 	 */
 	void setSpeed(double speed) {
 		
-		// need to test if 'a' works... or how it works
-		
 		arm.tankDrive(speed, 0);
-//		a.set(speed);
 	}
 
-	
 	/**
 	 * Move the arm as per the speed and set a dead zone for joystick.
 	 * @param speed The speed for the arm to set.
@@ -74,7 +72,10 @@ public class Arm implements Constants {
 		}
 	}
 	
-	
+	/**
+	 * Overwrite joystick values in a way that 0.0-1.0 is proportional to 0.2-1.0
+	 * @param x The joystick value that needs to be rounded up.
+	 */
 	private double deadZone(double x) {
 
 		if (Math.abs(x) < minimumJoystickValue) return 0;

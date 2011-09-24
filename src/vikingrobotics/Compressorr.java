@@ -36,10 +36,19 @@ public class Compressorr implements Constants {
 	Robot1777 r;
 	Compressor compressor = new Compressor(COMPRESSOR_CHANNEL, COMPRESSOR_RELAY);
 	
+	/**
+	 * Compressorr constructor
+	 * 
+	 */
 	public Compressorr(Robot1777 r) {
 		this.r = r;
 	}
-	
+
+	/**
+	 * Turn on the compressor and read the relay to automatically turn it
+	 * off, then turn it back on when needed.
+	 * 
+	 */
 	void run() {
 
 		if(!compressor.getPressureSwitchValue()) {
@@ -52,10 +61,18 @@ public class Compressorr implements Constants {
 		}
 	}
 	
+	/**
+	 * Start the compressor. The is stopped by default and won't operate until starting it.
+	 * 
+	 */
 	void start() {
 		compressor.start();
 	}
 	
+	/**
+	 * Stop the compressor. This method will stop the compressor from turning on.
+	 * 
+	 */
 	void stop() {
 		compressor.stop();
 	}

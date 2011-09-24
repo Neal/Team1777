@@ -44,7 +44,11 @@ public class UserMessages {
         DriverStationLCD.Line.kUser5,
         DriverStationLCD.Line.kUser6};
 	
-    
+
+	/**
+	 * UserMessages constructor
+	 * 
+	 */
 	public UserMessages(Robot1777 r) {
 		this.r = r;
 	}
@@ -72,17 +76,29 @@ public class UserMessages {
 		uM.updateLCD();
 	}
 
+	/**
+	 * Initialize User Messages. Clear all lines and update 1st line.
+	 * 
+	 */
 	public void init() {
 		
 		clearAll();
 		write(1, 1, "Robot Ready!");
 	}
 
+	/**
+	 * Clear a specified line.
+	 * @param lineNumber The line to be cleared.
+	 */
 	public void clear(int lineNumber) {
 		
 		write(lineNumber, 1, "");
 	}
 	
+	/**
+	 * Clear all lines.
+	 * 
+	 */
 	public void clearAll() {
 		
 		for (int i = 1; i <= 6; i++)
