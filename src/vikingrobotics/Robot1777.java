@@ -158,7 +158,7 @@ public class Robot1777 extends SimpleRobot implements Constants {
 					if(joystick1.getRawButton(10)) gyro.reset();  // But unfortunately we never did that.
 					if(gyroAngle >= 360) gyro.reset();
 					if(gyroAngle <=-360) gyro.reset();
-					uM.write(5, 13, " | " + gyroAngle);
+					uM.write(5, "Gyro: " + gyroAngle);
 					
 
 					// Driving Code
