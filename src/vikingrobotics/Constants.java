@@ -31,10 +31,10 @@ package vikingrobotics;
 public interface Constants {
 
 	// Joysticks
-	public static final int JOYSTICK1 = 1;
-	public static final int JOYSTICK2 = 2;
-	public static final int JOYSTICK3 = 3;
-	public static final int JOYSTICK4 = 4;
+	public static final int JOYSTICK_1 = 1;
+	public static final int JOYSTICK_2 = 2;
+	public static final int JOYSTICK_3 = 3;
+	public static final int JOYSTICK_4 = 4;
 
 	// Motor used with the camera
 	public static final int CAM_SERVO = 9;

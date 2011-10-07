@@ -35,6 +35,7 @@ public class Drive implements Constants {
 	vikingrobotics.RobotDrive drive = (vikingrobotics.RobotDrive) new RobotDrive(DRIVE_FRONT_LEFT, DRIVE_REAR_LEFT, DRIVE_FRONT_RIGHT, DRIVE_REAR_RIGHT);
 	double frontLeft = 0.0, frontRight = 0.0, rearLeft = 0.0, rearRight = 0.0, max = 0.0;
 	static double minimumJoystickValue = 0.2;
+	public boolean ROBOT_INVERTED = false;
 	Robot1777 r;
 	
 	/**
@@ -57,7 +58,10 @@ public class Drive implements Constants {
 	 */
 	void setSpeed(double fL, double fR, double rL, double rR) {
 
-		drive.setSpeed(fL, fR, rL, rR);
+		if(!ROBOT_INVERTED)
+			drive.setSpeed(fL, fR, rL, rR);
+		else
+			drive.setSpeed(-fL, -fR, -rL, -rR);
 	}
 	
 	/**
