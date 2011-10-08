@@ -33,9 +33,8 @@ import edu.wpi.first.wpilibj.RobotDrive;
 public class Drive implements Constants {
 
 	vikingrobotics.RobotDrive drive = (vikingrobotics.RobotDrive) new RobotDrive(DRIVE_FRONT_LEFT, DRIVE_REAR_LEFT, DRIVE_FRONT_RIGHT, DRIVE_REAR_RIGHT);
-	double frontLeft = 0.0, frontRight = 0.0, rearLeft = 0.0, rearRight = 0.0, max = 0.0;
-	static double minimumJoystickValue = 0.2;
-	public boolean ROBOT_INVERTED = false;
+	private final static double minimumJoystickValue = 0.2;
+	private boolean ROBOT_INVERTED = false;
 	Robot1777 r;
 	
 	/**
@@ -46,6 +45,10 @@ public class Drive implements Constants {
 		this.r = r;
 	}
 	
+	public boolean isRobotInverted() {
+		return ROBOT_INVERTED;
+	}
+
 	/**
 	 * Set the speed of all the motors.
 	 * This is used once an appropriate drive setup function is called such as
@@ -56,7 +59,7 @@ public class Drive implements Constants {
 	 * @param rL Value for the rear left motor.
 	 * @param rR Value for the rear right motor.
 	 */
-	void setSpeed(double fL, double fR, double rL, double rR) {
+	protected void setSpeed(double fL, double fR, double rL, double rR) {
 
 		if(!ROBOT_INVERTED)
 			drive.setSpeed(fL, fR, rL, rR);
@@ -79,32 +82,36 @@ public class Drive implements Constants {
 	 */
 	public void mecanumDrive(double X, double Y, double Z) {
 
-		frontLeft  = deadZone(Y) + deadZone(Z) + deadZone(X);
-		frontRight = deadZone(Y) - deadZone(Z) - deadZone(X);
-		rearLeft   = deadZone(Y) + deadZone(Z) - deadZone(X);
-		rearRight  = deadZone(Y) - deadZone(Z) + deadZone(X);
+		X = deadZone(X);
+		Y = deadZone(Y);
+		Z = deadZone(Z);
 
-		r.uM.write(3, "X: " + roundDecimals(deadZone(X)) +
-				   " | Y: " + roundDecimals(deadZone(Y)) +
-				   " | Z: " + roundDecimals(deadZone(Z)));
+		double frontLeft  = Y + Z + X;
+		double frontRight = Y - Z - X;
+		double rearLeft   = Y + Z - X;
+		double rearRight  = Y - Z + X;
+
+		r.uM.write(3, "X: " + roundDecimals(X) +
+				   " | Y: " + roundDecimals(Y) +
+				   " | Z: " + roundDecimals(Z));
 
 		
-		max = Math.abs(frontLeft);
+		double maxMagnitude = Math.abs(frontLeft);
 		
-		if(Math.abs(frontRight) > max)
-			max = Math.abs(frontRight);
+		if(Math.abs(frontRight) > maxMagnitude)
+			maxMagnitude = Math.abs(frontRight);
 		
-		if(Math.abs(rearLeft) > max)
-			max = Math.abs(rearLeft);
+		if(Math.abs(rearLeft) > maxMagnitude)
+			maxMagnitude = Math.abs(rearLeft);
 		
-		if(Math.abs(rearRight) > max)
-			max = Math.abs(rearRight);
+		if(Math.abs(rearRight) > maxMagnitude)
+			maxMagnitude = Math.abs(rearRight);
 		
-		if(max > 1) { 
-			frontLeft /= max;
-			frontRight /= max;
-			rearLeft /= max;
-			rearRight /= max;
+		if(maxMagnitude > 1) { 
+			frontLeft /= maxMagnitude;
+			frontRight /= maxMagnitude;
+			rearLeft /= maxMagnitude;
+			rearRight /= maxMagnitude;
 		}
 		
 		setSpeed(frontLeft, frontRight, rearLeft, rearRight);
@@ -115,7 +122,7 @@ public class Drive implements Constants {
 	 * @param leftStick The value of the left stick.
 	 * @param rightStick The value of the right stick.
 	 */
-	void tankDrive(double leftStick, double rightStick) {
+	public void tankDrive(double leftStick, double rightStick) {
 		
 		drive.tankDrive(leftStick, rightStick);
 	}
@@ -124,7 +131,7 @@ public class Drive implements Constants {
 	 * Stop all the motors completely.
 	 * 
 	 */
-	void stop() {
+	public void stop() {
 		setSpeed(0, 0, 0, 0);
 	}
 	

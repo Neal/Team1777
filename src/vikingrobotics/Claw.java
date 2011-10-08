@@ -41,6 +41,7 @@ public class Claw implements Constants {
 	 */
 	public Claw(Robot1777 r) {
 		this.r = r;
+		r.uM.write(6, "Claw: Unknown");
 	}
 
 	/**
