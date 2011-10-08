@@ -92,8 +92,8 @@ public class Drive implements Constants {
 		double rearRight  = Y - Z + X;
 
 		r.uM.write(3, "X: " + roundDecimals(X) +
-				   " | Y: " + roundDecimals(Y) +
-				   " | Z: " + roundDecimals(Z));
+		           " | Y: " + roundDecimals(Y) +
+		           " | Z: " + roundDecimals(Z));
 
 		
 		double maxMagnitude = Math.abs(frontLeft);
