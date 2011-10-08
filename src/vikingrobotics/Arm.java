@@ -42,7 +42,6 @@ public class Arm implements Constants {
 	 */
 	public Arm(Robot1777 r) {
 		this.r = r;
-		r.uM.write(5, "Arm: Unknown");
 	}
 	
 	/**

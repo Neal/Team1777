@@ -43,7 +43,6 @@ public class Compressorr implements Constants {
 	 */
 	public Compressorr(Robot1777 r) {
 		this.r = r;
-		r.uM.write(4, "Compressor: Unknown");
 	}
 
 	/**
