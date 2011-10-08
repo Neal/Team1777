@@ -69,10 +69,10 @@ public class Robot1777 extends SimpleRobot implements Constants {
 			
 			camServo = new Servo(CAM_SERVO);
 			gyro = new Gyro(GYRO_SLOT, GYRO_CHANNEL);
-			joystick1 = new Joystick(JOYSTICK1);
-			joystick2 = new Joystick(JOYSTICK2);
-			joystick3 = new Joystick(JOYSTICK3);
-			joystick4 = new Joystick(JOYSTICK4);
+			joystick1 = new Joystick(JOYSTICK_1);
+			joystick2 = new Joystick(JOYSTICK_2);
+			joystick3 = new Joystick(JOYSTICK_3);
+			joystick4 = new Joystick(JOYSTICK_4);
 			
 			Watchdog.getInstance();
 			SmartDashboard.init();
@@ -129,6 +129,9 @@ public class Robot1777 extends SimpleRobot implements Constants {
 					LineSensors.printUM();
 					compressor.run();
 
+					// Force compressor
+					if(joystick1.getRawButton(5) && joystick1.getRawButton(6)) compressor.forceStop();
+					if(joystick1.getRawButton(7) && joystick1.getRawButton(8)) compressor.forceStart();
 					
 					// Arm code
 					arm.set(joystick1.getRawAxis(4) * 0.75); // I love this new method for arm :D (Hoping it works)
@@ -168,7 +171,7 @@ public class Robot1777 extends SimpleRobot implements Constants {
 						drive.mecanumDrive(joystick1.getX(), -joystick1.getY(), -joystick1.getZ() * 0.95);
 					
 
-					Timer.delay(0.005);
+					Timer.delay(0.005);   // Pause the loop for 0.005 seconds.
 			}
 	}
 
