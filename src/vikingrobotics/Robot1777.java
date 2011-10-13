@@ -120,7 +120,6 @@ public class Robot1777 extends SimpleRobot implements Constants {
 			gyro.setSensitivity(0.007);
 			compressor.start();
 			int gyroAngle = 0;
-			boolean isTankDrive = false;
 
 			
 			while(isOperatorControl() && isEnabled()) {
@@ -165,10 +164,7 @@ public class Robot1777 extends SimpleRobot implements Constants {
 					
 
 					// Driving Code
-					if(isTankDrive)
-						drive.tankDrive(joystick1.getRawAxis(2), joystick1.getRawAxis(5));
-					else
-						drive.mecanumDrive(joystick1.getX(), -joystick1.getY(), -joystick1.getZ() * 0.95);
+					drive.mecanumDrive(joystick1.getX(), -joystick1.getY(), -joystick1.getZ() * 0.95);
 					
 
 					Timer.delay(0.005);   // Pause the loop for 0.005 seconds.
