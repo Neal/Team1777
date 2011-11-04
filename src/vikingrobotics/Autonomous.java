@@ -93,21 +93,21 @@ public class Autonomous implements Constants {
 				r.drive.stop(); // Stop when we reach the 'T' unless we want to go hit the wall.
 			}
 
-			if(currentTime > 7 && currentTime < 12) // Move the arm up from 8th second till the 11th second.
-					r.arm.setSpeed(0.7);
+//			if(currentTime > 7 && currentTime < 12) // Move the arm up from 8th second till the 11th second.
+//					r.arm.setSpeed(0.7);
 					
-			if(currentTime > 10 && currentTime < 14) // Go backwards after done to get a head start for tele-op.
-					r.drive.setSpeed(-0.6, -0.6, -0.6, -0.6);
+//			if(currentTime > 10 && currentTime < 14) // Go backwards after done to get a head start for tele-op.
+//					r.drive.setSpeed(-0.6, -0.6, -0.6, -0.6);
 			
-			if(currentTime < 1.3 && currentTime > 0.1) // Need to match the time to make it perfect.
-					r.arm.setSpeed(-0.8);
-			else
-					r.arm.setSpeed(0.0);
+//			if(currentTime < 1.3 && currentTime > 0.1) // Need to match the time to make it perfect.
+//					r.arm.setSpeed(-0.8);
+//			else
+//					r.arm.setSpeed(0.0);
 		}
 		
 		if(timeUp(currentTime)) {
 			r.drive.stop(); // Stop when time is up.
-			r.arm.set(0);
+//			r.arm.set(0);
 		}
 	}
 	

@@ -25,6 +25,7 @@
 package vikingrobotics;
 
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SmartDashboard;
 
 /**
  * @author Neal
@@ -61,6 +62,8 @@ public class Arm implements Constants {
 	public void set(double speed) {
 
 		setSpeed(deadZone(speed));
+		SmartDashboard.log(deadZone(speed), "Arm");
+		Debug.println(deadZone(speed));
 		
 		if(deadZone(speed) < 0) {
 			r.uM.write(5, "Arm: Moving Upwards");
@@ -79,10 +82,16 @@ public class Arm implements Constants {
 	 */
 	private double deadZone(double x) {
 
+		if (x > 1) return 1;
 		if (Math.abs(x) < minimumJoystickValue) return 0;
 		double scaledSlope = 1 / (1 - minimumJoystickValue);
 		if (x > 0) return (x - minimumJoystickValue) * scaledSlope;
 		return (x + minimumJoystickValue) * scaledSlope;
+	}
+        
+	void test() {
+		arm.tankDrive(deadZone(r.joystick2.getRawAxis(2)), 0);
+		r.uM.write(2, "Arm: " + r.joystick2.getRawAxis(2));
 	}
 
 }

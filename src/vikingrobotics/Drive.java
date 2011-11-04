@@ -25,6 +25,7 @@
 package vikingrobotics;
 
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SmartDashboard;
 
 /**
  * @author Neal
@@ -32,9 +33,9 @@ import edu.wpi.first.wpilibj.RobotDrive;
  */
 public class Drive implements Constants {
 
-	vikingrobotics.RobotDrive drive = (vikingrobotics.RobotDrive) new RobotDrive(DRIVE_FRONT_LEFT, DRIVE_REAR_LEFT, DRIVE_FRONT_RIGHT, DRIVE_REAR_RIGHT);
+	RobotDrive drive14 = new RobotDrive(DRIVE_FRONT_LEFT, DRIVE_REAR_RIGHT);
+	RobotDrive drive32 = new RobotDrive(DRIVE_REAR_LEFT, DRIVE_FRONT_RIGHT);
 	private final static double minimumJoystickValue = 0.2;
-	private boolean ROBOT_INVERTED = false;
 	Robot1777 r;
 	
 	/**
@@ -44,11 +45,8 @@ public class Drive implements Constants {
 	public Drive(Robot1777 r) {
 		this.r = r;
 	}
-	
-	public boolean isRobotInverted() {
-		return ROBOT_INVERTED;
-	}
 
+	
 	/**
 	 * Set the speed of all the motors.
 	 * This is used once an appropriate drive setup function is called such as
@@ -61,11 +59,10 @@ public class Drive implements Constants {
 	 */
 	protected void setSpeed(double fL, double fR, double rL, double rR) {
 
-		if(!ROBOT_INVERTED)
-			drive.setSpeed(fL, fR, rL, rR);
-		else
-			drive.setSpeed(-fL, -fR, -rL, -rR);
+		drive14.tankDrive(fL, rR);
+		drive32.tankDrive(rL, fR);
 	}
+
 	
 	/**
 	 * Drive method for Mecanum wheeled robots.
@@ -80,11 +77,11 @@ public class Drive implements Constants {
 	 * @param Y Y value from the joystick. [-1.0..1.0]
 	 * @param Z Z value from the joystick. [-1.0..1.0]
 	 */
-	public void mecanumDrive(double X, double Y, double Z) {
+	public void mecanumDrive(double iX, double iY, double iZ) {
 
-		X = deadZone(X);
-		Y = deadZone(Y);
-		Z = deadZone(Z);
+		double X = deadZone(iX);
+		double Y = deadZone(iY);
+		double Z = deadZone(iZ);
 
 		double frontLeft  = Y + Z + X;
 		double frontRight = Y - Z - X;
@@ -94,6 +91,10 @@ public class Drive implements Constants {
 		r.uM.write(3, "X: " + roundDecimals(X) +
 		           " | Y: " + roundDecimals(Y) +
 		           " | Z: " + roundDecimals(Z));
+
+		SmartDashboard.log(X, "X");
+		SmartDashboard.log(Y, "Y");
+		SmartDashboard.log(Z, "Z");
 
 		
 		double maxMagnitude = Math.abs(frontLeft);
@@ -116,16 +117,19 @@ public class Drive implements Constants {
 		
 		setSpeed(frontLeft, frontRight, rearLeft, rearRight);
 	}
+
 	
 	/**
 	 * Provide tank steering using the stored robot configuration.
-	 * @param leftStick The value of the left stick.
-	 * @param rightStick The value of the right stick.
+	 * @param left The value of the left stick.
+	 * @param right The value of the right stick.
 	 */
-	public void tankDrive(double leftStick, double rightStick) {
-		
-		drive.tankDrive(leftStick, rightStick);
+	public void tankDrive(double left, double right) {
+
+		drive14.tankDrive(left, right);
+		drive32.tankDrive(left, right);
 	}
+
 	
 	/**
 	 * Stop all the motors completely.
@@ -149,6 +153,7 @@ public class Drive implements Constants {
 	 */
 	private double deadZone(double x) {
 		
+		if (x > 1) return 1;
 		if (Math.abs(x) < minimumJoystickValue) return 0;
 		double scaledSlope = 1 / (1 - minimumJoystickValue);
 		if (x > 0) return (x - minimumJoystickValue) * scaledSlope;

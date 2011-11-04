@@ -57,15 +57,18 @@ public class Robot1777 extends SimpleRobot implements Constants {
 
 			// Yeah, I know I need to organise this a little -- who care, it works :P
 			System.out.println("\nBooting up...\nLoading essentials..."); // Don't worry, this is just for debug (to know when it reaches here)
+                        
+			uM = new UserMessages(this);
+			uM.init();
 			
 			arm = new Arm(this);
 			claw = new Claw(this);
 			cam = new Camera(this);
 			drive = new Drive(this);
-			uM = new UserMessages(this);
 			autonomous = new Autonomous(this);
 			compressor = new Compressorr(this);
 			LineSensors = new LineSensors(this);
+			LineSensors.printUM();
 			
 			camServo = new Servo(CAM_SERVO);
 			gyro = new Gyro(GYRO_SLOT, GYRO_CHANNEL);
@@ -76,9 +79,7 @@ public class Robot1777 extends SimpleRobot implements Constants {
 			
 			Watchdog.getInstance();
 			SmartDashboard.init();
-			LineSensors.printUM();
 			cam.init();
-			uM.init();
 			
 			System.out.println("Robot Ready!\n\n");
 	}
@@ -127,13 +128,16 @@ public class Robot1777 extends SimpleRobot implements Constants {
 					getWatchdog().feed();   // Damn watchdog gets hungry every 0.005 seconds.
 					LineSensors.printUM();
 					compressor.run();
-
+					
+					
 					// Force compressor
 					if(joystick1.getRawButton(5) && joystick1.getRawButton(6)) compressor.forceStop();
 					if(joystick1.getRawButton(7) && joystick1.getRawButton(8)) compressor.forceStart();
+
 					
 					// Arm code
-					arm.set(joystick1.getRawAxis(4) * 0.75); // I love this new method for arm :D (Hoping it works)
+					arm.set(joystick1.getRawAxis(5));
+					arm.test();
 
 					
 					// Camera Code
@@ -160,11 +164,11 @@ public class Robot1777 extends SimpleRobot implements Constants {
 					if(joystick1.getRawButton(10)) gyro.reset();  // But unfortunately we never did that.
 					if(gyroAngle >= 360) gyro.reset();
 					if(gyroAngle <=-360) gyro.reset();
-					uM.write(5, "Gyro: " + gyroAngle);
+//					uM.write(5, "Gyro: " + gyroAngle); // Commented because there's no extra room.
 					
 
 					// Driving Code
-					drive.mecanumDrive(joystick1.getX(), -joystick1.getY(), -joystick1.getZ() * 0.95);
+					drive.mecanumDrive(joystick1.getX(), -joystick1.getY(), -joystick1.getZ());
 					
 
 					Timer.delay(0.005);   // Pause the loop for 0.005 seconds.
@@ -181,7 +185,7 @@ public class Robot1777 extends SimpleRobot implements Constants {
 
 			compressor.stop();
 			uM.write(1, "~ DISABLED MODE ~");
-			LineSensors.printUM();
+			Debug.println("~ DISABLED ~");
 			while(isDisabled()) getWatchdog().feed();
 	}
 
