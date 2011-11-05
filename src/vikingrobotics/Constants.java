@@ -62,8 +62,8 @@ public interface Constants {
 	public static final int GYRO_CHANNEL = 1;
 
 	// Compressor slot
-	public static final int COMPRESSOR_CHANNEL = 1;
-	public static final int COMPRESSOR_RELAY = 1;
+	public static final int COMPRESSOR_CHANNEL = 2;
+	public static final int COMPRESSOR_RELAY = 2;
 
 	// Setting for debug mode
 	public static final boolean DEBUG_MODE = true;

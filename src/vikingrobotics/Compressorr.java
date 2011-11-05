@@ -26,6 +26,7 @@ package vikingrobotics;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.SmartDashboard;
 
 /**
  * @author Neal
@@ -35,7 +36,7 @@ public class Compressorr implements Constants {
 
 	Robot1777 r;
 	Compressor compressor = new Compressor(COMPRESSOR_CHANNEL, COMPRESSOR_RELAY);
-	private boolean forceCompressorOff = false;
+//	private boolean forceCompressorOff = false;
 	
 	/**
 	 * Compressorr constructor
@@ -53,7 +54,6 @@ public class Compressorr implements Constants {
 	 */
 	void run() {
 
-		if(!forceCompressorOff) {
 			if(!compressor.getPressureSwitchValue()) {
 				r.uM.write(4, "Compressor: Enabled");
 				compressor.setRelayValue(Relay.Value.kForward);
@@ -62,11 +62,15 @@ public class Compressorr implements Constants {
 				r.uM.write(4, "Compressor: Disabled");
 				compressor.setRelayValue(Relay.Value.kOff);
 			}
-		}
-		else {
-			r.uM.write(4, "Compressor: Force stopped.");
-			compressor.stop();
-		}
+			else {
+				r.uM.write(4, "Compressor: Unknown.");
+			}
+                        SmartDashboard.log(compressor.getPressureSwitchValue(), "PressureSwitchValue");
+//		}
+//		else {
+//			r.uM.write(4, "Compressor: Force stopped.");
+//			compressor.stop();
+//		}
 	}
 	
 	/**
@@ -74,7 +78,7 @@ public class Compressorr implements Constants {
 	 * 
 	 */
 	void start() {
-		if(!forceCompressorOff)
+//		if(!forceCompressorOff)
 			compressor.start();
 	}
 	
@@ -83,7 +87,7 @@ public class Compressorr implements Constants {
 	 * 
 	 */
 	void stop() {
-		if(!forceCompressorOff)
+//		if(!forceCompressorOff)
 			compressor.stop();
 	}
 	
@@ -92,7 +96,7 @@ public class Compressorr implements Constants {
 	 * 
 	 */
 	void forceStop() {
-		forceCompressorOff = true;
+//		forceCompressorOff = true;
 		r.uM.write(4, "Compressor: Force stopped.");
 		compressor.stop();
 	}
@@ -102,7 +106,7 @@ public class Compressorr implements Constants {
 	 * 
 	 */
 	void forceStart() {
-		forceCompressorOff = false;
+//		forceCompressorOff = false;
 		r.uM.write(4, "Compressor: Force started.");
 		this.run();
 	}

@@ -63,7 +63,6 @@ public class Arm implements Constants {
 
 		setSpeed(deadZone(speed));
 		SmartDashboard.log(deadZone(speed), "Arm");
-		Debug.println(deadZone(speed));
 		
 		if(deadZone(speed) < 0) {
 			r.uM.write(5, "Arm: Moving Upwards");
@@ -90,8 +89,13 @@ public class Arm implements Constants {
 	}
         
 	void test() {
-		arm.tankDrive(deadZone(r.joystick2.getRawAxis(2)), 0);
-		r.uM.write(2, "Arm: " + r.joystick2.getRawAxis(2));
+
+		double armSpeed = r.joystick1.getRawAxis(5) * 0.8;
+            
+		if(armSpeed <= -0.2 || armSpeed >= 0.2)
+			arm.tankDrive(armSpeed, 0);
+		
+		r.uM.write(2, "Arm: " + armSpeed);
 	}
 
 }

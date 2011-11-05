@@ -119,7 +119,7 @@ public class Robot1777 extends SimpleRobot implements Constants {
 			getWatchdog().setEnabled(true);
 			gyro.reset();
 			gyro.setSensitivity(0.007);
-			compressor.start();
+//			compressor.start();
 			int gyroAngle = 0;
 
 			
@@ -136,7 +136,7 @@ public class Robot1777 extends SimpleRobot implements Constants {
 
 					
 					// Arm code
-					arm.set(joystick1.getRawAxis(5));
+//					arm.set(joystick1.getRawAxis(5));
 					arm.test();
 
 					
