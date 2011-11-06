@@ -57,6 +57,14 @@ public interface Constants {
 	public static final int LINESENSOR_MIDDLE = 9;
 	public static final int LINESENSOR_RIGHT = 8;
 
+	// User Messages
+	public static final int USER_MESSAGES_MODE = 1;
+	public static final int USER_MESSAGES_DRIVE = 2;
+	public static final int USER_MESSAGES_LINESENSORS = 3;
+	public static final int USER_MESSAGES_ARM = 4;
+	public static final int USER_MESSAGES_CLAW = 5;
+	public static final int USER_MESSAGES_COMPRESSOR = 6;
+
 	// Gyroscope slots
 	public static final int GYRO_SLOT = 1;
 	public static final int GYRO_CHANNEL = 1;

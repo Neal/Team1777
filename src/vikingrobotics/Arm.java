@@ -43,7 +43,7 @@ public class Arm implements Constants {
 	 */
 	public Arm(Robot1777 r) {
 		this.r = r;
-		r.uM.write(5, "Arm: Unknown");
+		r.uM.write(USER_MESSAGES_ARM, "Arm: Unknown");
 	}
 	
 	/**
@@ -61,18 +61,22 @@ public class Arm implements Constants {
 	 */
 	public void set(double speed) {
 
-		setSpeed(deadZone(speed));
-		SmartDashboard.log(deadZone(speed), "Arm");
+		if(speed > -0.2 && speed < 0.2) speed = 0;
 		
-		if(deadZone(speed) < 0) {
-			r.uM.write(5, "Arm: Moving Upwards");
-		}
-		else if(deadZone(speed) > 0) {
-			r.uM.write(5, "Arm: Moving Downwards");
-		}
-		if(deadZone(speed) == 0) {
-			r.uM.write(5, "Arm: Not moving");
-		}
+		if(speed < 0)
+			r.uM.write(USER_MESSAGES_ARM, "Arm: Moving Upwards");
+		
+		else if(speed > 0)
+			r.uM.write(USER_MESSAGES_ARM, "Arm: Moving Downwards");
+
+		else if(speed == 0)
+			r.uM.write(USER_MESSAGES_ARM, "Arm: Not moving");
+		
+		else
+			r.uM.write(USER_MESSAGES_ARM, "Arm: Unknown.");
+
+		setSpeed(speed);
+		SmartDashboard.log(speed, "Arm");
 	}
 	
 	/**
@@ -90,12 +94,11 @@ public class Arm implements Constants {
         
 	void test() {
 
-		double armSpeed = r.joystick1.getRawAxis(5) * 0.8;
+		double armSpeed = r.joystick2.getRawAxis(5) * 0.8;
             
 		if(armSpeed <= -0.2 || armSpeed >= 0.2)
 			arm.tankDrive(armSpeed, 0);
 		
-		r.uM.write(2, "Arm: " + armSpeed);
 	}
 
 }

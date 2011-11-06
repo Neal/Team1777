@@ -88,9 +88,9 @@ public class Drive implements Constants {
 		double rearLeft   = Y + Z - X;
 		double rearRight  = Y - Z + X;
 
-		r.uM.write(3, "X: " + roundDecimals(X) +
-		           " | Y: " + roundDecimals(Y) +
-		           " | Z: " + roundDecimals(Z));
+		r.uM.write(USER_MESSAGES_DRIVE, "X: " + roundDecimals(X) +
+									 " | Y: " + roundDecimals(Y) +
+									 " | Z: " + roundDecimals(Z));
 
 		SmartDashboard.log(X, "X");
 		SmartDashboard.log(Y, "Y");

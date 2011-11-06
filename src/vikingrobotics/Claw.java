@@ -41,7 +41,7 @@ public class Claw implements Constants {
 	 */
 	public Claw(Robot1777 r) {
 		this.r = r;
-		r.uM.write(6, "Claw: Unknown");
+		r.uM.write(USER_MESSAGES_CLAW, "Claw: Unknown");
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class Claw implements Constants {
 	 */
 	public void open() {
 
-		r.uM.write(6, "Claw: OPEN");
+		r.uM.write(USER_MESSAGES_CLAW, "Claw: OPEN");
 		claw.set(Relay.Value.kForward);
 	}
 	
@@ -60,7 +60,7 @@ public class Claw implements Constants {
 	 */
 	public void close() {
 
-		r.uM.write(6, "Claw: CLOSE");
+		r.uM.write(USER_MESSAGES_CLAW, "Claw: CLOSE");
 		claw.set(Relay.Value.kReverse);
 	}
 

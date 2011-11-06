@@ -56,9 +56,9 @@ public class LineSensors implements Constants {
 		int middleValue = middle.get() ? 1 : 0;
 		int rightValue = right.get() ? 1 : 0;
 
-		r.uM.write(6, 1, "   " + leftValue);
-		r.uM.write(6, 5, " | " + middleValue);
-		r.uM.write(6, 9, " | " + rightValue);
+		r.uM.write(USER_MESSAGES_LINESENSORS, 1, "   " + leftValue);
+		r.uM.write(USER_MESSAGES_LINESENSORS, 5, " | " + middleValue);
+		r.uM.write(USER_MESSAGES_LINESENSORS, 9, " | " + rightValue);
 	}
 
 	/**

@@ -36,7 +36,7 @@ public class Compressorr implements Constants {
 
 	Robot1777 r;
 	Compressor compressor = new Compressor(COMPRESSOR_CHANNEL, COMPRESSOR_RELAY);
-//	private boolean forceCompressorOff = false;
+	private boolean forceCompressorOff = false;
 	
 	/**
 	 * Compressorr constructor
@@ -54,23 +54,25 @@ public class Compressorr implements Constants {
 	 */
 	void run() {
 
+		if(!forceCompressorOff) {
+			
 			if(!compressor.getPressureSwitchValue()) {
-				r.uM.write(4, "Compressor: Enabled");
+				r.uM.write(USER_MESSAGES_COMPRESSOR, "Compressor: Enabled");
 				compressor.setRelayValue(Relay.Value.kForward);
 			}
 			else if(compressor.getPressureSwitchValue()) {
-				r.uM.write(4, "Compressor: Disabled");
+				r.uM.write(USER_MESSAGES_COMPRESSOR, "Compressor: Disabled");
 				compressor.setRelayValue(Relay.Value.kOff);
 			}
 			else {
-				r.uM.write(4, "Compressor: Unknown.");
+				r.uM.write(USER_MESSAGES_COMPRESSOR, "Compressor: Unknown.");
 			}
-                        SmartDashboard.log(compressor.getPressureSwitchValue(), "PressureSwitchValue");
-//		}
-//		else {
-//			r.uM.write(4, "Compressor: Force stopped.");
-//			compressor.stop();
-//		}
+			
+		}
+		else {
+			r.uM.write(USER_MESSAGES_COMPRESSOR, "Compressor: Force stopped.");
+			compressor.stop();
+		}
 	}
 	
 	/**
@@ -78,7 +80,7 @@ public class Compressorr implements Constants {
 	 * 
 	 */
 	void start() {
-//		if(!forceCompressorOff)
+		if(!forceCompressorOff)
 			compressor.start();
 	}
 	
@@ -87,7 +89,7 @@ public class Compressorr implements Constants {
 	 * 
 	 */
 	void stop() {
-//		if(!forceCompressorOff)
+		if(!forceCompressorOff)
 			compressor.stop();
 	}
 	
@@ -96,8 +98,8 @@ public class Compressorr implements Constants {
 	 * 
 	 */
 	void forceStop() {
-//		forceCompressorOff = true;
-		r.uM.write(4, "Compressor: Force stopped.");
+		forceCompressorOff = true;
+		r.uM.write(USER_MESSAGES_COMPRESSOR, "Compressor: Force stopped.");
 		compressor.stop();
 	}
 	
@@ -106,8 +108,8 @@ public class Compressorr implements Constants {
 	 * 
 	 */
 	void forceStart() {
-//		forceCompressorOff = false;
-		r.uM.write(4, "Compressor: Force started.");
+		forceCompressorOff = false;
+		r.uM.write(USER_MESSAGES_COMPRESSOR, "Compressor: Force started.");
 		this.run();
 	}
 

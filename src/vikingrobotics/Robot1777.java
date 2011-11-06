@@ -93,16 +93,29 @@ public class Robot1777 extends SimpleRobot implements Constants {
 	public void autonomous() {
 
 			System.out.println("~~ ENTERED AUTONOMOUS");
-			uM.write(1, "Autonomous Mode");
-			getWatchdog().setEnabled(true);
+			uM.write(USER_MESSAGES_MODE, "Autonomous Mode");
+			compressor.start();
+
+			double startTime = Timer.getFPGATimestamp();
+			double currentTime = 0;
 
 			while (isAutonomous() && isEnabled()) {
-					
-					// Just hoping everything works :)
-					getWatchdog().feed();
-					autonomous.run();
-					Timer.delay(0.005);
+						
+				getWatchdog().feed();
+				currentTime = Timer.getFPGATimestamp() - startTime;
+
+				if(currentTime > 5 && currentTime < 7)
+					claw.close();
+
+				if(currentTime > 8 && currentTime < 12)
+					arm.setSpeed(-0.6);
+		
+				if(currentTime > 9 && currentTime < 12)
+					drive.setSpeed(0.5, 0.5, 0.5, 0.5);
+			
+				Timer.delay(0.005);
 			}
+
 	}
 
 
@@ -115,7 +128,7 @@ public class Robot1777 extends SimpleRobot implements Constants {
 
 			System.out.println("~~ ENTERED OPERATOR CONTROL");
 			SmartDashboard.log("Tele-Operated", "MODE ");
-			uM.write(1, "~ TELE-OP MODE ~");
+			uM.write(USER_MESSAGES_MODE, "~ TELE-OP MODE ~");
 			getWatchdog().setEnabled(true);
 			gyro.reset();
 			gyro.setSensitivity(0.007);
@@ -136,7 +149,7 @@ public class Robot1777 extends SimpleRobot implements Constants {
 
 					
 					// Arm code
-//					arm.set(joystick1.getRawAxis(5));
+					arm.set(joystick1.getRawAxis(5) * 0.8);
 					arm.test();
 
 					
@@ -183,9 +196,9 @@ public class Robot1777 extends SimpleRobot implements Constants {
 	 */
 	public void disabled() {
 
-			compressor.stop();
-			uM.write(1, "~ DISABLED MODE ~");
+			uM.write(USER_MESSAGES_MODE, "~ DISABLED MODE ~");
 			Debug.println("~ DISABLED ~");
+			compressor.stop();
 			while(isDisabled()) getWatchdog().feed();
 	}
 

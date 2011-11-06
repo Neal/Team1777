@@ -25,6 +25,7 @@
 package vikingrobotics;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Watchdog;
 
 /**
  * @author Neal
@@ -62,6 +63,9 @@ public class Autonomous implements Constants {
 		double currentTime = 0;
 
 		while(r.isAutonomous() && r.isEnabled() && !timeUp(currentTime)) {
+                    
+                    
+			r.getWatchdog().feed();
 
 			currentTime = Timer.getFPGATimestamp() - startTime;
 			
