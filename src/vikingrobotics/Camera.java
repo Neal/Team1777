@@ -66,7 +66,11 @@ public class Camera implements Constants {
 	                cam.getImage().free();
 	                cont = true;
 	            } catch (AxisCameraException e) {
+	            	if(Debug.getMode())
+	            		System.err.println("-- ERROR - AxisCamera error 1 --- " + e);
 	            } catch (NIVisionException e) {
+	            	if(Debug.getMode())
+	            		System.err.println("-- ERROR - AxisCamera error 2 --- " + e);
 	            }
 	        }
 	        timer.stop();
