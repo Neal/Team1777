@@ -24,11 +24,13 @@
 
 package vikingrobotics;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.camera.*;
+import edu.wpi.first.wpilibj.image.NIVisionException;
 
 /**
- * @author Neal
  *
+ * @author Neal
  */
 public class Camera implements Constants {
 
@@ -54,12 +56,33 @@ public class Camera implements Constants {
 		 */
 		public void init() {
 
+	        boolean cont = false;
+	        Timer timer = new Timer();
+	        timer.start();
+	        cam = AxisCamera.getInstance();
+	        while (!cont) {
+	            try {
+	                cam.getImage().free();
+	                cont = true;
+	            } catch (AxisCameraException e) {
+	            } catch (NIVisionException e) {
+	            }
+	        }
+	        timer.stop();
+	        System.out.println("- Camera initialized in " + timer.get() + " seconds");
+	        timer.reset();
+
+	        timer.start();
 			cam.writeBrightness(50);
 			cam.writeRotation(AxisCamera.RotationT.k180);
 			cam.writeResolution(AxisCamera.ResolutionT.k640x480);
 			cam.writeWhiteBalance(AxisCamera.WhiteBalanceT.automatic);
 			cam.writeExposureControl(AxisCamera.ExposureT.automatic);
 			cam.writeExposurePriority(AxisCamera.ExposurePriorityT.frameRate);
+	        timer.stop();
+	        System.out.println("- Wrote camera settings in " + timer.get() + " seconds");
+	        timer.reset();
+	        
 		}
 
 }

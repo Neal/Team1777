@@ -29,8 +29,8 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SmartDashboard;
 
 /**
- * @author Neal
  *
+ * @author Neal
  */
 public class Compressorr implements Constants {
 

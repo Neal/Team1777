@@ -27,8 +27,8 @@ package vikingrobotics;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 /**
- * @author Neal
  *
+ * @author Neal
  */
 public class LineSensors implements Constants {
 

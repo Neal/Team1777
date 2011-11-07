@@ -36,6 +36,7 @@ public class Arm implements Constants {
 	Robot1777 r;
 	RobotDrive arm = new RobotDrive(ARM_SLOT, ARM_DUMMY_SLOT);
 	static double minimumJoystickValue = 0.2;
+	private double speed;
 
 	/**
 	 * Arm constructor
@@ -61,24 +62,36 @@ public class Arm implements Constants {
 	 */
 	public void set(double speed) {
 
-		if(speed > -0.2 && speed < 0.2) speed = 0;
+		if(speed > -0.2 && speed < 0.2) 
+			this.speed = 0;
+		else
+			this.speed = speed;
 		
-		if(speed < 0)
+		
+		if(getSpeed() < 0)
 			r.uM.write(USER_MESSAGES_ARM, "Arm: Moving Upwards");
 		
-		else if(speed > 0)
+		else if(getSpeed() > 0)
 			r.uM.write(USER_MESSAGES_ARM, "Arm: Moving Downwards");
 
-		else if(speed == 0)
+		else if(getSpeed() == 0)
 			r.uM.write(USER_MESSAGES_ARM, "Arm: Not moving");
 		
 		else
 			r.uM.write(USER_MESSAGES_ARM, "Arm: Unknown.");
 
-		setSpeed(speed);
-		SmartDashboard.log(speed, "Arm");
+		setSpeed(getSpeed());
+		SmartDashboard.log(getSpeed(), "Arm");
 	}
 	
+	public double getSpeed() {
+		return speed;
+	}
+	
+	public void stop() {
+		setSpeed(0);
+	}
+
 	/**
 	 * Overwrite joystick values in a way that 0.0-1.0 is proportional to 0.2-1.0
 	 * @param x The joystick value that needs to be rounded up.

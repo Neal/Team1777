@@ -25,8 +25,8 @@
 package vikingrobotics;
 
 /**
- * @author Neal
  *
+ * @author Neal
  */
 public class Debug implements Constants {
 

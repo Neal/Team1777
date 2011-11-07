@@ -28,13 +28,14 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SmartDashboard;
 
 /**
- * @author Neal
  *
+ * @author Neal
  */
 public class Drive implements Constants {
 
-	RobotDrive drive14 = new RobotDrive(DRIVE_FRONT_LEFT, DRIVE_REAR_RIGHT);
-	RobotDrive drive32 = new RobotDrive(DRIVE_REAR_LEFT, DRIVE_FRONT_RIGHT);
+	RobotDrive_ drive = new RobotDrive_(DRIVE_FRONT_LEFT, DRIVE_REAR_LEFT, DRIVE_FRONT_RIGHT, DRIVE_REAR_RIGHT);
+//	RobotDrive drive14 = new RobotDrive(DRIVE_FRONT_LEFT, DRIVE_REAR_RIGHT);
+//	RobotDrive drive32 = new RobotDrive(DRIVE_REAR_LEFT, DRIVE_FRONT_RIGHT);
 	private final static double minimumJoystickValue = 0.2;
 	Robot1777 r;
 	
@@ -59,8 +60,9 @@ public class Drive implements Constants {
 	 */
 	protected void setSpeed(double fL, double fR, double rL, double rR) {
 
-		drive14.tankDrive(fL, rR);
-		drive32.tankDrive(rL, fR);
+		drive.setSpeed(fL, fR, rL, rR);
+//		drive14.tankDrive(fL, rR);
+//		drive32.tankDrive(rL, fR);
 	}
 
 	
@@ -126,8 +128,8 @@ public class Drive implements Constants {
 	 */
 	public void tankDrive(double left, double right) {
 
-		drive14.tankDrive(left, right);
-		drive32.tankDrive(left, right);
+//		drive14.tankDrive(left, right);
+//		drive32.tankDrive(left, right);
 	}
 
 	

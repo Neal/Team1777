@@ -27,8 +27,8 @@ package vikingrobotics;
 import edu.wpi.first.wpilibj.Relay;
 
 /**
- * @author Neal
  *
+ * @author Neal
  */
 public class Claw implements Constants {
 

@@ -6,8 +6,8 @@ package vikingrobotics;
 import edu.wpi.first.wpilibj.*;
 
 /**
- * @author Neal
  *
+ * @author Neal
  */
 public class Dashboard {
 	

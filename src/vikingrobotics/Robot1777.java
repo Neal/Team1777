@@ -28,8 +28,8 @@ import edu.wpi.first.wpilibj.*;
 
 
 /**
- * @author Neal
  *
+ * @author Neal
  */
 public class Robot1777 extends SimpleRobot implements Constants {
 
@@ -94,25 +94,12 @@ public class Robot1777 extends SimpleRobot implements Constants {
 
 			System.out.println("~~ ENTERED AUTONOMOUS");
 			uM.write(USER_MESSAGES_MODE, "Autonomous Mode");
-			compressor.start();
-
-			double startTime = Timer.getFPGATimestamp();
-			double currentTime = 0;
+			autonomous.init();
 
 			while (isAutonomous() && isEnabled()) {
 						
 				getWatchdog().feed();
-				currentTime = Timer.getFPGATimestamp() - startTime;
-
-				if(currentTime > 5 && currentTime < 7)
-					claw.close();
-
-				if(currentTime > 8 && currentTime < 12)
-					arm.setSpeed(-0.6);
-		
-				if(currentTime > 9 && currentTime < 12)
-					drive.setSpeed(0.5, 0.5, 0.5, 0.5);
-			
+				autonomous.run();
 				Timer.delay(0.005);
 			}
 
@@ -132,7 +119,7 @@ public class Robot1777 extends SimpleRobot implements Constants {
 			getWatchdog().setEnabled(true);
 			gyro.reset();
 			gyro.setSensitivity(0.007);
-//			compressor.start();
+			compressor.start();
 			int gyroAngle = 0;
 
 			
@@ -142,16 +129,13 @@ public class Robot1777 extends SimpleRobot implements Constants {
 					LineSensors.printUM();
 					compressor.run();
 					
-					
 					// Force compressor
 					if(joystick1.getRawButton(5) && joystick1.getRawButton(6)) compressor.forceStop();
 					if(joystick1.getRawButton(7) && joystick1.getRawButton(8)) compressor.forceStart();
-
 					
 					// Arm code
 					arm.set(joystick1.getRawAxis(5) * 0.8);
 					arm.test();
-
 					
 					// Camera Code
 					if(joystick2.getRawButton(9) || joystick1.getRawButton(11))
@@ -159,7 +143,6 @@ public class Robot1777 extends SimpleRobot implements Constants {
 					
 					if(joystick2.getRawButton(10) || joystick1.getRawButton(12))
 						camServo.setAngle(camServo.getAngle() + 2);
-
 					
 					// Claw Code
 					if(joystick1.getRawButton(1) || joystick2.getRawButton(1) || joystick1.getRawButton(3) || joystick2.getRawButton(3)) {
@@ -171,7 +154,6 @@ public class Robot1777 extends SimpleRobot implements Constants {
 						claw.close();
 					}
 					
-
 					// Gyro Code
 					gyroAngle = (int) gyro.getAngle();            // All this works if you have a gyro plugged in.
 					if(joystick1.getRawButton(10)) gyro.reset();  // But unfortunately we never did that.
@@ -179,11 +161,9 @@ public class Robot1777 extends SimpleRobot implements Constants {
 					if(gyroAngle <=-360) gyro.reset();
 //					uM.write(5, "Gyro: " + gyroAngle); // Commented because there's no extra room.
 					
-
 					// Driving Code
 					drive.mecanumDrive(joystick1.getX(), -joystick1.getY(), -joystick1.getZ());
 					
-
 					Timer.delay(0.005);   // Pause the loop for 0.005 seconds.
 			}
 	}
@@ -199,7 +179,9 @@ public class Robot1777 extends SimpleRobot implements Constants {
 			uM.write(USER_MESSAGES_MODE, "~ DISABLED MODE ~");
 			Debug.println("~ DISABLED ~");
 			compressor.stop();
-			while(isDisabled()) getWatchdog().feed();
+			drive.stop();
+			arm.stop();
+			while(isDisabled())	getWatchdog().feed();
 	}
 
 }

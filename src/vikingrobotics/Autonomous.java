@@ -28,8 +28,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Watchdog;
 
 /**
- * @author Neal
  *
+ * @author Neal
  */
 public class Autonomous implements Constants {
 	
@@ -44,6 +44,7 @@ public class Autonomous implements Constants {
 	double d4 = 0.6;
 	
 	double startTime = 0;
+	double currentTime = 0;
 	
 	/**
 	 * Autonomous constructor
@@ -53,66 +54,59 @@ public class Autonomous implements Constants {
 		this.r = r;
 	}
 	
+	public void init() {
+		
+		startTime = Timer.getFPGATimestamp();
+		r.LineSensors.printUM();
+		r.compressor.start();
+		this.startTime = 0;
+		this.currentTime = 0;
+	}
+	
 	/**
 	 * The main autonomous mode.
 	 * 
 	 */
 	public void run() {
 
-		double startTime = Timer.getFPGATimestamp();
-		double currentTime = 0;
+		this.currentTime = Timer.getFPGATimestamp() - startTime;
+		
+		if(currentTime > 5 && currentTime < 7)
+			r.claw.close();
 
-		while(r.isAutonomous() && r.isEnabled() && !timeUp(currentTime)) {
-                    
-                    
-			r.getWatchdog().feed();
+		if(currentTime > 8 && currentTime < 12)
+			r.arm.setSpeed(-0.6);
 
-			currentTime = Timer.getFPGATimestamp() - startTime;
-			
-			atL = r.LineSensors.atL();
-			atM = r.LineSensors.atM();
-			atR = r.LineSensors.atR();
+		if(currentTime > 9 && currentTime < 12)
+			r.drive.setSpeed(0.5, 0.5, 0.5, 0.5);
+	
+	}
+	
+	private void driveTillCross() {
 
-			r.LineSensors.printUM();
-
-			if(!r.LineSensors.atCross()) {
+		this.atL = r.LineSensors.atL();
+		this.atM = r.LineSensors.atM();
+		this.atR = r.LineSensors.atR();
+		
+		if(!r.LineSensors.atCross()) {
 				
-					if(atL || bLM) {
-							r.drive.setSpeed(d2, d1, d2, d1);  bLM = true;
-							if(atM) bLM = false;
-					}
-					else if (atM || bLR) {
-							r.drive.setSpeed(d3, d3, d3, d3);  bLR = true;
-							if(atL || atR) bLR = false;
-					}
-					else if (atR || bRM) {
-							r.drive.setSpeed(d1, d2, d1, d2);  bRM = true;
-							if(atM) bRM = false;
-					}
-					else {
-							r.drive.setSpeed(d4, d4, d4, d4); // We should only get here if it doesn't know where it is, which most likely be when we start if they don't place it right.
-					}
+			if(atL || bLM) {
+				r.drive.setSpeed(d2, d1, d2, d1);  bLM = true;
+				if(atM) bLM = false;
+			}
+			else if (atM || bLR) {
+				r.drive.setSpeed(d3, d3, d3, d3);  bLR = true;
+				if(atL || atR) bLR = false;
+			}
+			else if (atR || bRM) {
+				r.drive.setSpeed(d1, d2, d1, d2);  bRM = true;
+				if(atM) bRM = false;
 			}
 			else {
-				r.drive.stop(); // Stop when we reach the 'T' unless we want to go hit the wall.
+				r.drive.setSpeed(d4, d4, d4, d4); // We should only get here if it doesn't know where it is, which most likely be when we start if they don't place it right.
 			}
+		}
 
-//			if(currentTime > 7 && currentTime < 12) // Move the arm up from 8th second till the 11th second.
-//					r.arm.setSpeed(0.7);
-					
-//			if(currentTime > 10 && currentTime < 14) // Go backwards after done to get a head start for tele-op.
-//					r.drive.setSpeed(-0.6, -0.6, -0.6, -0.6);
-			
-//			if(currentTime < 1.3 && currentTime > 0.1) // Need to match the time to make it perfect.
-//					r.arm.setSpeed(-0.8);
-//			else
-//					r.arm.setSpeed(0.0);
-		}
-		
-		if(timeUp(currentTime)) {
-			r.drive.stop(); // Stop when time is up.
-//			r.arm.set(0);
-		}
 	}
 	
 	/**

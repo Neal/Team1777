@@ -24,11 +24,16 @@
 
 package vikingrobotics;
 
+import edu.wpi.first.wpilibj.CANJaguar;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.can.CANNotInitializedException;
+import edu.wpi.first.wpilibj.can.CANTimeoutException;
+
 /**
- * @author Neal
  *
+ * @author Neal
  */
-public class RobotDrive_ extends edu.wpi.first.wpilibj.RobotDrive {
+public class RobotDrive_ extends RobotDrive {
 
 	/**
 	 * Constructor for RobotDrive with 4 motors specified with channel numbers.
@@ -58,10 +63,23 @@ public class RobotDrive_ extends edu.wpi.first.wpilibj.RobotDrive {
 	 */
 	public void setSpeed(double frontLeft, double frontRight, double rearLeft, double rearRight) {
 		
-		m_frontLeftMotor.set(frontLeft);
-		m_frontRightMotor.set(frontRight);
-		m_rearLeftMotor.set(rearLeft);
-		m_rearRightMotor.set(rearRight);
+
+        byte syncGroup = (byte)0x80;
+        
+		m_frontLeftMotor.set(frontLeft, syncGroup);
+		m_frontRightMotor.set(frontRight, syncGroup);
+		m_rearLeftMotor.set(rearLeft, syncGroup);
+		m_rearRightMotor.set(rearRight, syncGroup);
+
+        if (m_isCANInitialized) {
+            try {
+                CANJaguar.updateSyncGroup(syncGroup);
+            } catch (CANNotInitializedException e) {
+                m_isCANInitialized = false;
+            } catch (CANTimeoutException e) {}
+        }
+
+        if (m_safetyHelper != null) m_safetyHelper.feed();
 	}
 
 }
