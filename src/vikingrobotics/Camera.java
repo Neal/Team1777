@@ -25,7 +25,8 @@
 package vikingrobotics;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.camera.*;
+import edu.wpi.first.wpilibj.camera.AxisCamera;
+import edu.wpi.first.wpilibj.camera.AxisCameraException;
 import edu.wpi.first.wpilibj.image.NIVisionException;
 
 /**
@@ -35,7 +36,7 @@ import edu.wpi.first.wpilibj.image.NIVisionException;
 public class Camera implements Constants {
 
 		Robot1777 r;
-		AxisCamera cam = AxisCamera.getInstance();
+		AxisCamera cam;
 		
 		/**
 		 * Camera constructor
