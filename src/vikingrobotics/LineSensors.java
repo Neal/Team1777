@@ -36,6 +36,7 @@ public class LineSensors implements Constants {
 	DigitalInput left = new DigitalInput(LINESENSOR_LEFT);
 	DigitalInput middle = new DigitalInput(LINESENSOR_MIDDLE);
 	DigitalInput right = new DigitalInput(LINESENSOR_RIGHT);
+    int leftValue, middleValue, rightValue;
 	
 
 	/**
@@ -45,6 +46,15 @@ public class LineSensors implements Constants {
 	public LineSensors(Robot1777 r) {
 		this.r = r;
 	}
+
+    /**
+     * Update the values of the line tracking sensors.
+     */
+    private void updateSensorValues() {
+        leftValue = left.get() ? 1 : 0;
+        middleValue = middle.get() ? 1 : 0;
+        rightValue = right.get() ? 1 : 0;
+    }
 	
 	/**
 	 * Prints all 3 line sensors' value on User Messages on the same line.
@@ -52,9 +62,7 @@ public class LineSensors implements Constants {
 	 */
 	void printUM() {
 
-		int leftValue = left.get() ? 1 : 0;
-		int middleValue = middle.get() ? 1 : 0;
-		int rightValue = right.get() ? 1 : 0;
+		updateSensorValues();
 
 		r.uM.write(USER_MESSAGES_LINESENSORS, 1, "   " + leftValue);
 		r.uM.write(USER_MESSAGES_LINESENSORS, 5, " | " + middleValue);
