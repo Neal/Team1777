@@ -44,13 +44,14 @@ public class Camera implements Constants {
 		 */
 		public Camera(Robot1777 r) {
 			this.r = r;
+			init();
 		}
 
 		/**
 		 * Initialize the camera.
 		 * 
 		 * Set brightness; Rotate the camera to 180 degrees;
-		 * Set resolution to 640 x 480; Set white balance to automatic;
+		 * Set resolution to 320 x 240; Set white balance to automatic;
 		 * Set Exposure Control to automatic; Set Exposure priority
 		 * to frame rate.
 		 * 
@@ -80,7 +81,7 @@ public class Camera implements Constants {
 	        timer.start();
 			cam.writeBrightness(50);
 			cam.writeRotation(AxisCamera.RotationT.k180);
-			cam.writeResolution(AxisCamera.ResolutionT.k640x480);
+			cam.writeResolution(AxisCamera.ResolutionT.k320x240);
 			cam.writeWhiteBalance(AxisCamera.WhiteBalanceT.automatic);
 			cam.writeExposureControl(AxisCamera.ExposureT.automatic);
 			cam.writeExposurePriority(AxisCamera.ExposurePriorityT.frameRate);

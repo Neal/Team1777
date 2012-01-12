@@ -41,6 +41,7 @@ public class Robot1777 extends SimpleRobot implements Constants {
 	Drive drive;
 	Gyro gyro;
 	Joystick joystick1, joystick2, joystick3, joystick4;
+	Gamepad gamepad1;
 	LineSensors LineSensors;
 	Servo camServo;
 	SmartDashboard smartDB;
@@ -49,29 +50,28 @@ public class Robot1777 extends SimpleRobot implements Constants {
 
 
 	/**
-	 * Robot-wide initialization code should go here.
+	 * Robot-wide initialization code.
 	 *
-	 * Called exactly 1 time when the competition starts.
+	 * Called exactly 1 time when the robot starts.
 	 */
 	public void robotInit() {
 
 			// Yeah, I know I need to organise this a little -- who care, it works :P
-			System.out.println("\nBooting up...\nLoading essentials..."); // Don't worry, this is just for debug (to know when it reaches here)
-                        
-			uM = new UserMessages(this);
-			uM.init();
+			System.out.println("\nBooting up...");       // Don't worry, I know this doesn't do anything,
+			System.out.println("Loading essentials..."); // It's just for debugging (to know when it reaches here)
 			
-			arm = new Arm(this);
-			claw = new Claw(this);
+			uM = new UserMessages(this);
+			arm = new Arm(this, ARM_SLOT, ARM_DUMMY_SLOT);
+			claw = new Claw(this, CLAW_SLOT, Relay.Direction.kBoth);
 			cam = new Camera(this);
-			drive = new Drive(this);
+			drive = new Drive(this, DRIVE_FRONT_LEFT, DRIVE_REAR_LEFT, DRIVE_FRONT_RIGHT, DRIVE_REAR_RIGHT);
 			autonomous = new Autonomous(this);
-			compressor = new Compressorr(this);
-			LineSensors = new LineSensors(this);
-			LineSensors.printUM();
+			compressor = new Compressorr(this, COMPRESSOR_CHANNEL, COMPRESSOR_RELAY);
+			LineSensors = new LineSensors(this, LINESENSOR_LEFT, LINESENSOR_MIDDLE, LINESENSOR_RIGHT);
 			
 			camServo = new Servo(CAM_SERVO);
 			gyro = new Gyro(GYRO_SLOT, GYRO_CHANNEL);
+			gamepad1 = new Gamepad(1);
 			joystick1 = new Joystick(JOYSTICK_1);
 			joystick2 = new Joystick(JOYSTICK_2);
 			joystick3 = new Joystick(JOYSTICK_3);
@@ -79,14 +79,13 @@ public class Robot1777 extends SimpleRobot implements Constants {
 			
 			Watchdog.getInstance();
 			SmartDashboard.init();
-			cam.init();
 			
 			System.out.println("Robot Ready!\n\n");
 	}
 
 
 	/**
-	 * Autonomous should go here.
+	 * Autonomous mode.
 	 *
 	 * Called repeatedly while the robot is in the autonomous state.
 	 */
@@ -107,7 +106,7 @@ public class Robot1777 extends SimpleRobot implements Constants {
 
 
 	/**
-	 * Operator control (tele-operated) code should go here.
+	 * Operator control (tele-operated) mode.
 	 * 
 	 * Called repeatedly while the robot is in the operator-controlled state.
 	 */
@@ -129,13 +128,14 @@ public class Robot1777 extends SimpleRobot implements Constants {
 					LineSensors.printUM();
 					compressor.run();
 					
+					boolean backButton = gamepad1.getButton(Gamepad_button_Back);
+					
 					// Force compressor
 					if(joystick1.getRawButton(5) && joystick1.getRawButton(6)) compressor.forceStop();
 					if(joystick1.getRawButton(7) && joystick1.getRawButton(8)) compressor.forceStart();
 					
 					// Arm code
 					arm.set(joystick1.getRawAxis(5) * 0.8);
-					arm.test();
 					
 					// Camera Code
 					if(joystick2.getRawButton(9) || joystick1.getRawButton(11))
@@ -145,24 +145,24 @@ public class Robot1777 extends SimpleRobot implements Constants {
 						camServo.setAngle(camServo.getAngle() + 2);
 					
 					// Claw Code
-					if(joystick1.getRawButton(1) || joystick2.getRawButton(1) || joystick1.getRawButton(3) || joystick2.getRawButton(3)) {
-						
+					if(joystick1.getRawButton(1) || joystick2.getRawButton(1) || joystick1.getRawButton(3) || joystick2.getRawButton(3))
 						claw.open();
-					}
-					if(joystick1.getRawButton(2) || joystick2.getRawButton(2) || joystick1.getRawButton(4) || joystick2.getRawButton(4)) {
-
+					
+					if(joystick1.getRawButton(2) || joystick2.getRawButton(2) || joystick1.getRawButton(4) || joystick2.getRawButton(4))
 						claw.close();
-					}
 					
 					// Gyro Code
 					gyroAngle = (int) gyro.getAngle();            // All this works if you have a gyro plugged in.
-					if(joystick1.getRawButton(10)) gyro.reset();  // But unfortunately we never did that.
+					if(joystick1.getRawButton(10)) gyro.reset();  // But unfortunately, we never did that.
 					if(gyroAngle >= 360) gyro.reset();
 					if(gyroAngle <=-360) gyro.reset();
-//					uM.write(5, "Gyro: " + gyroAngle); // Commented because there's no extra room.
+//					uM.write(5, "Gyro: " + gyroAngle); // Commented because there's no extra room in user messages.
 					
 					// Driving Code
-					drive.mecanumDrive(joystick1.getX(), -joystick1.getY(), -joystick1.getZ());
+//					drive.mecanumDrive(joystick1.getX(), -joystick1.getY(), -joystick1.getZ());
+					drive.mecanumDrive(gamepad1.getAxis(Gamepad_leftStick_X),
+									  -gamepad1.getAxis(Gamepad_leftStick_Y),
+									  -gamepad1.getAxis(Gamepad_shoulderAxis));
 					
 					Timer.delay(0.005);   // Pause the loop for 0.005 seconds.
 			}
@@ -170,7 +170,7 @@ public class Robot1777 extends SimpleRobot implements Constants {
 
 
 	/**
-	 * Disabled should go here.
+	 * Disabled mode.
 	 *
 	 * Called repeatedly while the robot is in the disabled state.
 	 */

@@ -51,6 +51,7 @@ public class UserMessages {
 	 */
 	public UserMessages(Robot1777 r) {
 		this.r = r;
+		init();
 	}
 
 	/**

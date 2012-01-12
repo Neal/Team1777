@@ -34,16 +34,17 @@ import edu.wpi.first.wpilibj.SmartDashboard;
 public class Arm implements Constants {
 
 	Robot1777 r;
-	RobotDrive arm = new RobotDrive(ARM_SLOT, ARM_DUMMY_SLOT);
-	static double minimumJoystickValue = 0.2;
+	RobotDrive arm;
 	private double speed;
 
 	/**
 	 * Arm constructor
 	 * 
 	 */
-	public Arm(Robot1777 r) {
+	public Arm(Robot1777 r, int channel, int dummy_channel) {
 		this.r = r;
+		System.out.println("- Initializing Arm on channel " + channel);
+		arm = new RobotDrive(channel, dummy_channel);
 		r.uM.write(USER_MESSAGES_ARM, "Arm: Unknown");
 	}
 	

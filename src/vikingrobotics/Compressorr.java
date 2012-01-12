@@ -35,15 +35,17 @@ import edu.wpi.first.wpilibj.SmartDashboard;
 public class Compressorr implements Constants {
 
 	Robot1777 r;
-	Compressor compressor = new Compressor(COMPRESSOR_CHANNEL, COMPRESSOR_RELAY);
+	Compressor compressor;
 	private boolean forceCompressorOff = false;
 	
 	/**
 	 * Compressorr constructor
 	 * 
 	 */
-	public Compressorr(Robot1777 r) {
+	public Compressorr(Robot1777 r, int channel, int relay) {
 		this.r = r;
+		System.out.println("- Initializing Compressor on channel " + channel + " and relay on channel " + relay);
+		compressor = new Compressor(channel, relay);
 		r.uM.write(4, "Compressor: Unknown");
 	}
 

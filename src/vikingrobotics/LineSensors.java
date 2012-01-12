@@ -33,9 +33,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 public class LineSensors implements Constants {
 
 	Robot1777 r;
-	DigitalInput left = new DigitalInput(LINESENSOR_LEFT);
-	DigitalInput middle = new DigitalInput(LINESENSOR_MIDDLE);
-	DigitalInput right = new DigitalInput(LINESENSOR_RIGHT);
+	DigitalInput left, middle, right;
     int leftValue, middleValue, rightValue;
 	
 
@@ -43,17 +41,25 @@ public class LineSensors implements Constants {
 	 * LineSensors constructor
 	 * 
 	 */
-	public LineSensors(Robot1777 r) {
+	public LineSensors(Robot1777 r, int leftSensor, int middleSensor, int rightSensor) {
 		this.r = r;
+		System.out.println("- Initializing left line sensor on channel " + leftSensor);
+		left = new DigitalInput(leftSensor);
+		System.out.println("- Initializing middle line sensor on channel " + middleSensor);
+		middle = new DigitalInput(middleSensor);
+		System.out.println("- Initializing right line sensor on channel " + rightSensor);
+		right = new DigitalInput(rightSensor);
+		printUM();
 	}
 
-    /**
+	
+	/**
      * Update the values of the line tracking sensors.
      */
     private void updateSensorValues() {
-        leftValue = left.get() ? 1 : 0;
-        middleValue = middle.get() ? 1 : 0;
-        rightValue = right.get() ? 1 : 0;
+        this.leftValue = left.get() ? 1 : 0;
+        this.middleValue = middle.get() ? 1 : 0;
+        this.rightValue = right.get() ? 1 : 0;
     }
 	
 	/**

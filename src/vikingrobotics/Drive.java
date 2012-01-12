@@ -33,18 +33,24 @@ import edu.wpi.first.wpilibj.SmartDashboard;
  */
 public class Drive implements Constants {
 
-	RobotDrive_ drive = new RobotDrive_(DRIVE_FRONT_LEFT, DRIVE_REAR_LEFT, DRIVE_FRONT_RIGHT, DRIVE_REAR_RIGHT);
-//	RobotDrive drive14 = new RobotDrive(DRIVE_FRONT_LEFT, DRIVE_REAR_RIGHT);
-//	RobotDrive drive32 = new RobotDrive(DRIVE_REAR_LEFT, DRIVE_FRONT_RIGHT);
-	private final static double minimumJoystickValue = 0.2;
+	RobotDrive_ drive;
+//	RobotDrive drive14;
+//	RobotDrive drive32;
 	Robot1777 r;
 	
 	/**
 	 * Drive constructor
 	 * 
 	 */
-	public Drive(Robot1777 r) {
+	public Drive(Robot1777 r, int frontLeft, int rearLeft, int frontRight, int rearRight) {
 		this.r = r;
+		Debug.println("- Initializing front left motor on channel " + frontLeft);
+		Debug.println("- Initializing front right motor on channel " + frontRight);
+		Debug.println("- Initializing rear left motor on channel " + rearLeft);
+		Debug.println("- Initializing rear right motor on channel " + rearRight);
+		drive = new RobotDrive_(frontLeft, rearLeft, frontRight, rearRight);
+//		drive14 = new RobotDrive(frontLeft, rearRight);
+//		drive32 = new RobotDrive(rearLeft, frontRight);
 	}
 
 	
@@ -79,11 +85,7 @@ public class Drive implements Constants {
 	 * @param Y Y value from the joystick. [-1.0..1.0]
 	 * @param Z Z value from the joystick. [-1.0..1.0]
 	 */
-	public void mecanumDrive(double iX, double iY, double iZ) {
-
-		double X = deadZone(iX);
-		double Y = deadZone(iY);
-		double Z = deadZone(iZ);
+	public void mecanumDrive(double X, double Y, double Z) {
 
 		double frontLeft  = Y + Z + X;
 		double frontRight = Y - Z - X;
@@ -128,7 +130,7 @@ public class Drive implements Constants {
 	 */
 	public void tankDrive(double left, double right) {
 
-//		drive14.tankDrive(left, right);
+//		drive14.tankDrive(left, right); // Who does tank drive these days?!?!
 //		drive32.tankDrive(left, right);
 	}
 

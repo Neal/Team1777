@@ -25,6 +25,7 @@
 package vikingrobotics;
 
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Relay.Direction;
 
 /**
  *
@@ -32,15 +33,17 @@ import edu.wpi.first.wpilibj.Relay;
  */
 public class Claw implements Constants {
 
-	Relay claw = new Relay(CLAW_SLOT, Relay.Direction.kBoth);
+	Relay claw;
 	Robot1777 r;
 
 	/**
 	 * Claw constructor
 	 * 
 	 */
-	public Claw(Robot1777 r) {
+	public Claw(Robot1777 r, int channel, Direction direction) {
 		this.r = r;
+		System.out.println("- Initializing Claw on channel " + channel);
+		claw = new Relay(channel, direction);
 		r.uM.write(USER_MESSAGES_CLAW, "Claw: Unknown");
 	}
 
