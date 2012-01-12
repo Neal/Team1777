@@ -43,11 +43,11 @@ public class LineSensors implements Constants {
 	 */
 	public LineSensors(Robot1777 r, int leftSensor, int middleSensor, int rightSensor) {
 		this.r = r;
-		System.out.println("- Initializing left line sensor on channel " + leftSensor);
+		System.out.println("[cRIO] Initializing left line sensor on channel " + leftSensor);
 		left = new DigitalInput(leftSensor);
-		System.out.println("- Initializing middle line sensor on channel " + middleSensor);
+		System.out.println("[cRIO] Initializing middle line sensor on channel " + middleSensor);
 		middle = new DigitalInput(middleSensor);
-		System.out.println("- Initializing right line sensor on channel " + rightSensor);
+		System.out.println("[cRIO] Initializing right line sensor on channel " + rightSensor);
 		right = new DigitalInput(rightSensor);
 		printUM();
 	}

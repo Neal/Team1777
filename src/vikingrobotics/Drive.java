@@ -44,10 +44,10 @@ public class Drive implements Constants {
 	 */
 	public Drive(Robot1777 r, int frontLeft, int rearLeft, int frontRight, int rearRight) {
 		this.r = r;
-		Debug.println("- Initializing front left motor on channel " + frontLeft);
-		Debug.println("- Initializing front right motor on channel " + frontRight);
-		Debug.println("- Initializing rear left motor on channel " + rearLeft);
-		Debug.println("- Initializing rear right motor on channel " + rearRight);
+		Debug.println("[cRIO] Initializing front left motor on channel " + frontLeft);
+		Debug.println("[cRIO] Initializing front right motor on channel " + frontRight);
+		Debug.println("[cRIO] Initializing rear left motor on channel " + rearLeft);
+		Debug.println("[cRIO] Initializing rear right motor on channel " + rearRight);
 		drive = new RobotDrive_(frontLeft, rearLeft, frontRight, rearRight);
 //		drive14 = new RobotDrive(frontLeft, rearRight);
 //		drive32 = new RobotDrive(rearLeft, frontRight);
@@ -149,19 +149,6 @@ public class Drive implements Constants {
 	 */
 	private double roundDecimals(double d) {
 		return Math.ceil(d * 1000.0) / 1000.0;
-	}
-	
-	/**
-	 * Overwrite joystick values in a way that 0.0-1.0 is proportional to 0.2-1.0
-	 * @param x The joystick value that needs to be rounded up.
-	 */
-	private double deadZone(double x) {
-		
-		if (x > 1) return 1;
-		if (Math.abs(x) < minimumJoystickValue) return 0;
-		double scaledSlope = 1 / (1 - minimumJoystickValue);
-		if (x > 0) return (x - minimumJoystickValue) * scaledSlope;
-		return (x + minimumJoystickValue) * scaledSlope;
 	}
 
 }

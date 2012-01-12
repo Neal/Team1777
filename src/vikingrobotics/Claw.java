@@ -42,7 +42,7 @@ public class Claw implements Constants {
 	 */
 	public Claw(Robot1777 r, int channel, Direction direction) {
 		this.r = r;
-		System.out.println("- Initializing Claw on channel " + channel);
+		System.out.println("[cRIO] Initializing Claw on channel " + channel);
 		claw = new Relay(channel, direction);
 		r.uM.write(USER_MESSAGES_CLAW, "Claw: Unknown");
 	}

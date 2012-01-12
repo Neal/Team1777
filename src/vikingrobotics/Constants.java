@@ -86,7 +86,7 @@ public interface Constants {
     
     // Gamepad buttons
     public static final int Gamepad_button_A = 1; // Bottom Button
-    public static final int Gamepad_button_B = 2; // Rigth Button
+    public static final int Gamepad_button_B = 2; // Right Button
     public static final int Gamepad_button_X = 3; // Left Button
     public static final int Gamepad_button_Y = 4; // Top Button
     public static final int Gamepad_button_L_Shoulder = 5;
@@ -97,6 +97,6 @@ public interface Constants {
     public static final int Gamepad_button_RightStick = 10;		// Need to double check if all buttons are correct.
     
     // Minimum Joystick value
-	public static final double minimumJoystickValue = 0.2;
+	public static final double kMinimumJoystickValue = 0.2;
 
 }

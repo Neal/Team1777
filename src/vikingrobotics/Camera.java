@@ -24,6 +24,7 @@
 
 package vikingrobotics;
 
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
 import edu.wpi.first.wpilibj.camera.AxisCameraException;
@@ -37,16 +38,19 @@ public class Camera implements Constants {
 
 		Robot1777 r;
 		AxisCamera cam;
+		Servo camServo;
 		
 		/**
 		 * Camera constructor
 		 * 
 		 */
-		public Camera(Robot1777 r) {
+		public Camera(Robot1777 r, int servo_port) {
 			this.r = r;
+			camServo = new Servo(servo_port);
 			init();
 		}
-
+		
+		
 		/**
 		 * Initialize the camera.
 		 * 
@@ -68,14 +72,14 @@ public class Camera implements Constants {
 	                cont = true;
 	            } catch (AxisCameraException e) {
 	            	if(Debug.getMode())
-	            		System.err.println("-- ERROR - AxisCamera error 1 --- " + e);
+	            		System.err.println("[ERROR] - AxisCamera error 1 --- " + e);
 	            } catch (NIVisionException e) {
 	            	if(Debug.getMode())
-	            		System.err.println("-- ERROR - AxisCamera error 2 --- " + e);
+	            		System.err.println("[ERROR] - AxisCamera error 2 --- " + e);
 	            }
 	        }
 	        timer.stop();
-	        System.out.println("- Camera initialized in " + timer.get() + " seconds");
+	        System.out.println("[cRIO] Camera initialized in " + timer.get() + " seconds");
 	        timer.reset();
 
 	        timer.start();
@@ -86,9 +90,36 @@ public class Camera implements Constants {
 			cam.writeExposureControl(AxisCamera.ExposureT.automatic);
 			cam.writeExposurePriority(AxisCamera.ExposurePriorityT.frameRate);
 	        timer.stop();
-	        System.out.println("- Wrote camera settings in " + timer.get() + " seconds");
+	        System.out.println("[cRIO] Wrote camera settings in " + timer.get() + " seconds");
 	        timer.reset();
 	        
+		}
+		
+		
+	    /**
+	     * Set the servo angle.
+	     *
+	     * Assume that the servo angle is linear with respect to the PWM value (big assumption, need to test).
+	     *
+	     * Servo angles that are out of the supported range of the servo simply "saturate" in that direction
+	     * In other words, if the servo has a range of (X degrees to Y degrees) than angles of less than X
+	     * result in an angle of X being set and angles of more than Y degrees result in an angle of Y being set.
+	     *
+	     * @param degrees The angle in degrees to set the servo.
+	     */
+		public void setAngle(double degrees) {
+			camServo.setAngle(degrees);
+		}
+		
+		
+	    /**
+	     * Get the servo angle.
+	     *
+	     * Assume that the servo angle is linear with respect to the PWM value (big assumption, need to test).
+	     * @return The angle in degrees to which the servo is set.
+	     */
+		public double getAngle() {
+			return camServo.getAngle();
 		}
 
 }

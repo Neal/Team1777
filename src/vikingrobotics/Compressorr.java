@@ -44,7 +44,7 @@ public class Compressorr implements Constants {
 	 */
 	public Compressorr(Robot1777 r, int channel, int relay) {
 		this.r = r;
-		System.out.println("- Initializing Compressor on channel " + channel + " and relay on channel " + relay);
+		System.out.println("[cRIO] Initializing Compressor on channel " + channel + " and relay on channel " + relay);
 		compressor = new Compressor(channel, relay);
 		r.uM.write(4, "Compressor: Unknown");
 	}

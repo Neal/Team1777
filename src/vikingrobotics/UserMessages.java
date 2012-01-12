@@ -37,7 +37,8 @@ public class UserMessages {
 	DriverStationLCD uM = DriverStationLCD.getInstance();
 	Robot1777 r;
 	
-	public static final Line[] line = {DriverStationLCD.Line.kMain6,
+	public static final Line[] line = {
+		DriverStationLCD.Line.kMain6,
 		DriverStationLCD.Line.kUser2,
 		DriverStationLCD.Line.kUser3,
 		DriverStationLCD.Line.kUser4,
@@ -51,6 +52,7 @@ public class UserMessages {
 	 */
 	public UserMessages(Robot1777 r) {
 		this.r = r;
+		System.out.println("[cRIO] Initializing user messages");
 		init();
 	}
 

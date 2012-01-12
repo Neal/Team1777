@@ -43,7 +43,7 @@ public class Arm implements Constants {
 	 */
 	public Arm(Robot1777 r, int channel, int dummy_channel) {
 		this.r = r;
-		System.out.println("- Initializing Arm on channel " + channel);
+		System.out.println("[cRIO] Initializing Arm on channel " + channel);
 		arm = new RobotDrive(channel, dummy_channel);
 		r.uM.write(USER_MESSAGES_ARM, "Arm: Unknown");
 	}
@@ -91,19 +91,6 @@ public class Arm implements Constants {
 	
 	public void stop() {
 		setSpeed(0);
-	}
-
-	/**
-	 * Overwrite joystick values in a way that 0.0-1.0 is proportional to 0.2-1.0
-	 * @param x The joystick value that needs to be rounded up.
-	 */
-	private double deadZone(double x) {
-
-		if (x > 1) return 1;
-		if (Math.abs(x) < minimumJoystickValue) return 0;
-		double scaledSlope = 1 / (1 - minimumJoystickValue);
-		if (x > 0) return (x - minimumJoystickValue) * scaledSlope;
-		return (x + minimumJoystickValue) * scaledSlope;
 	}
         
 	void test() {
