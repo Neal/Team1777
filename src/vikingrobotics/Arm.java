@@ -92,11 +92,11 @@ public class Arm implements Constants {
 	public void stop() {
 		setSpeed(0);
 	}
-        
+
 	void test() {
 
 		double armSpeed = r.joystick2.getRawAxis(5) * 0.8;
-            
+
 		if(armSpeed <= -0.2 || armSpeed >= 0.2)
 			arm.tankDrive(armSpeed, 0);
 		

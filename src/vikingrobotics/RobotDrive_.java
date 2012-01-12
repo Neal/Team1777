@@ -64,22 +64,22 @@ public class RobotDrive_ extends RobotDrive {
 	public void setSpeed(double frontLeft, double frontRight, double rearLeft, double rearRight) {
 		
 
-        byte syncGroup = (byte)0x80;
-        
+		byte syncGroup = (byte)0x80;
+		
 		m_frontLeftMotor.set(frontLeft, syncGroup);
 		m_frontRightMotor.set(frontRight, syncGroup);
 		m_rearLeftMotor.set(rearLeft, syncGroup);
 		m_rearRightMotor.set(rearRight, syncGroup);
 
-        if (m_isCANInitialized) {
-            try {
-                CANJaguar.updateSyncGroup(syncGroup);
-            } catch (CANNotInitializedException e) {
-                m_isCANInitialized = false;
-            } catch (CANTimeoutException e) {}
-        }
+		if (m_isCANInitialized) {
+			try {
+				CANJaguar.updateSyncGroup(syncGroup);
+			} catch (CANNotInitializedException e) {
+				m_isCANInitialized = false;
+			} catch (CANTimeoutException e) {}
+		}
 
-        if (m_safetyHelper != null) m_safetyHelper.feed();
+		if (m_safetyHelper != null) m_safetyHelper.feed();
 	}
 
 }

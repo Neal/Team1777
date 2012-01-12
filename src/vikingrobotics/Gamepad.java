@@ -51,29 +51,29 @@ public class Gamepad extends Joystick implements Constants {
 	}
 
 
-    /**
-     * Get the button value for buttons 1 through 12.
-     *
-     * The buttons are returned in a single 16 bit value with one bit representing the state
-     * of each button. The appropriate button is returned as a boolean value.
-     *
-     * @param button The button number to be read.
-     * @return The state of the button.
-     */
-    public boolean getButton(int button) {
-        return super.getRawButton(button);
-    }
+	/**
+	 * Get the button value for buttons 1 through 12.
+	 *
+	 * The buttons are returned in a single 16 bit value with one bit representing the state
+	 * of each button. The appropriate button is returned as a boolean value.
+	 *
+	 * @param button The button number to be read.
+	 * @return The state of the button.
+	 */
+	public boolean getButton(int button) {
+		return super.getRawButton(button);
+	}
 
-    
-    /**
-     * For the current joystick, return the axis determined by the argument.
-     *
-     * This is for cases where the joystick axis is returned programatically, otherwise one of the
-     * previous functions would be preferable (for example getX()).
-     *
-     * @param axis The axis to read.
-     * @return The value of the axis.
-     */
+
+	/**
+	 * For the current joystick, return the axis determined by the argument.
+	 *
+	 * This is for cases where the joystick axis is returned programatically, otherwise one of the
+	 * previous functions would be preferable (for example getX()).
+	 *
+	 * @param axis The axis to read.
+	 * @return The value of the axis.
+	 */
 	public double getAxis(int axis) {
 		return deadZone(super.getRawAxis(axis));
 	}

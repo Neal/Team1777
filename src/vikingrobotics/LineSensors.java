@@ -34,7 +34,7 @@ public class LineSensors implements Constants {
 
 	Robot1777 r;
 	DigitalInput left, middle, right;
-    int leftValue, middleValue, rightValue;
+	int leftValue, middleValue, rightValue;
 	
 
 	/**
@@ -54,13 +54,13 @@ public class LineSensors implements Constants {
 
 	
 	/**
-     * Update the values of the line tracking sensors.
-     */
-    private void updateSensorValues() {
-        this.leftValue = left.get() ? 1 : 0;
-        this.middleValue = middle.get() ? 1 : 0;
-        this.rightValue = right.get() ? 1 : 0;
-    }
+	 * Update the values of the line tracking sensors.
+	 */
+	private void updateSensorValues() {
+		this.leftValue = left.get() ? 1 : 0;
+		this.middleValue = middle.get() ? 1 : 0;
+		this.rightValue = right.get() ? 1 : 0;
+	}
 	
 	/**
 	 * Prints all 3 line sensors' value on User Messages on the same line.

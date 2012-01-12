@@ -77,26 +77,26 @@ public interface Constants {
 	public static final boolean DEBUG_MODE = true;
 	
 	// Gamepad Axis
-    public static final int Gamepad_leftStick_X = 1;
-    public static final int Gamepad_leftStick_Y = 2;
-    public static final int Gamepad_shoulderAxis = 3;
-    public static final int Gamepad_rightStick_X = 4;
-    public static final int Gamepad_rightStick_Y = 5;
-    public static final int Gamepad_dpadAxis = 6;
-    
-    // Gamepad buttons
-    public static final int Gamepad_button_A = 1; // Bottom Button
-    public static final int Gamepad_button_B = 2; // Right Button
-    public static final int Gamepad_button_X = 3; // Left Button
-    public static final int Gamepad_button_Y = 4; // Top Button
-    public static final int Gamepad_button_L_Shoulder = 5;
-    public static final int Gamepad_button_R_Shoulder = 6;
-    public static final int Gamepad_button_Back = 7;
-    public static final int Gamepad_button_Start = 8;
-    public static final int Gamepad_button_LeftStick = 9;
-    public static final int Gamepad_button_RightStick = 10;		// Need to double check if all buttons are correct.
-    
-    // Minimum Joystick value
+	public static final int Gamepad_leftStick_X = 1;
+	public static final int Gamepad_leftStick_Y = 2;
+	public static final int Gamepad_shoulderAxis = 3;
+	public static final int Gamepad_rightStick_X = 4;
+	public static final int Gamepad_rightStick_Y = 5;
+	public static final int Gamepad_dpadAxis = 6;
+
+	// Gamepad buttons
+	public static final int Gamepad_button_A = 1; // Bottom Button
+	public static final int Gamepad_button_B = 2; // Right Button
+	public static final int Gamepad_button_X = 3; // Left Button
+	public static final int Gamepad_button_Y = 4; // Top Button
+	public static final int Gamepad_button_L_Shoulder = 5;
+	public static final int Gamepad_button_R_Shoulder = 6;
+	public static final int Gamepad_button_Back = 7;
+	public static final int Gamepad_button_Start = 8;
+	public static final int Gamepad_button_LeftStick = 9;
+	public static final int Gamepad_button_RightStick = 10;		// Need to double check if all buttons are correct.
+	
+	// Minimum Joystick value
 	public static final double kMinimumJoystickValue = 0.2;
 
 }

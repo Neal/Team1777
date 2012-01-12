@@ -62,62 +62,62 @@ public class Camera implements Constants {
 		 */
 		public void init() {
 
-	        boolean cont = false;
-	        Timer timer = new Timer();
-	        timer.start();
-	        cam = AxisCamera.getInstance();
-	        while (!cont) {
-	            try {
-	                cam.getImage().free();
-	                cont = true;
-	            } catch (AxisCameraException e) {
-	            	if(Debug.getMode())
-	            		System.err.println("[ERROR] - AxisCamera error 1 --- " + e);
-	            } catch (NIVisionException e) {
-	            	if(Debug.getMode())
-	            		System.err.println("[ERROR] - AxisCamera error 2 --- " + e);
-	            }
-	        }
-	        timer.stop();
-	        System.out.println("[cRIO] Camera initialized in " + timer.get() + " seconds");
-	        timer.reset();
+			boolean cont = false;
+			Timer timer = new Timer();
+			timer.start();
+			cam = AxisCamera.getInstance();
+			while (!cont) {
+				try {
+					cam.getImage().free();
+					cont = true;
+				} catch (AxisCameraException e) {
+					if(Debug.getMode())
+						System.err.println("[ERROR] - AxisCamera error 1 --- " + e);
+				} catch (NIVisionException e) {
+					if(Debug.getMode())
+						System.err.println("[ERROR] - AxisCamera error 2 --- " + e);
+				}
+			}
+			timer.stop();
+			System.out.println("[cRIO] Camera initialized in " + timer.get() + " seconds");
+			timer.reset();
 
-	        timer.start();
+			timer.start();
 			cam.writeBrightness(50);
 			cam.writeRotation(AxisCamera.RotationT.k180);
 			cam.writeResolution(AxisCamera.ResolutionT.k320x240);
 			cam.writeWhiteBalance(AxisCamera.WhiteBalanceT.automatic);
 			cam.writeExposureControl(AxisCamera.ExposureT.automatic);
 			cam.writeExposurePriority(AxisCamera.ExposurePriorityT.frameRate);
-	        timer.stop();
-	        System.out.println("[cRIO] Wrote camera settings in " + timer.get() + " seconds");
-	        timer.reset();
-	        
+			timer.stop();
+			System.out.println("[cRIO] Wrote camera settings in " + timer.get() + " seconds");
+			timer.reset();
+			
 		}
 		
 		
-	    /**
-	     * Set the servo angle.
-	     *
-	     * Assume that the servo angle is linear with respect to the PWM value (big assumption, need to test).
-	     *
-	     * Servo angles that are out of the supported range of the servo simply "saturate" in that direction
-	     * In other words, if the servo has a range of (X degrees to Y degrees) than angles of less than X
-	     * result in an angle of X being set and angles of more than Y degrees result in an angle of Y being set.
-	     *
-	     * @param degrees The angle in degrees to set the servo.
-	     */
+		/**
+		 * Set the servo angle.
+		 *
+		 * Assume that the servo angle is linear with respect to the PWM value (big assumption, need to test).
+		 *
+		 * Servo angles that are out of the supported range of the servo simply "saturate" in that direction
+		 * In other words, if the servo has a range of (X degrees to Y degrees) than angles of less than X
+		 * result in an angle of X being set and angles of more than Y degrees result in an angle of Y being set.
+		 *
+		 * @param degrees The angle in degrees to set the servo.
+		 */
 		public void setAngle(double degrees) {
 			camServo.setAngle(degrees);
 		}
 		
 		
-	    /**
-	     * Get the servo angle.
-	     *
-	     * Assume that the servo angle is linear with respect to the PWM value (big assumption, need to test).
-	     * @return The angle in degrees to which the servo is set.
-	     */
+		/**
+		 * Get the servo angle.
+		 *
+		 * Assume that the servo angle is linear with respect to the PWM value (big assumption, need to test).
+		 * @return The angle in degrees to which the servo is set.
+		 */
 		public double getAngle() {
 			return camServo.getAngle();
 		}
