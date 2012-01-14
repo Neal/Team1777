@@ -32,9 +32,9 @@ import edu.wpi.first.wpilibj.DigitalInput;
  */
 public class LineSensors implements Constants {
 
-	Robot1777 r;
-	DigitalInput left, middle, right;
-	int leftValue, middleValue, rightValue;
+	private Robot1777 r;
+	private DigitalInput left, middle, right;
+	private int leftValue, middleValue, rightValue;
 	
 
 	/**

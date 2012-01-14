@@ -34,8 +34,8 @@ import edu.wpi.first.wpilibj.SmartDashboard;
  */
 public class Compressorr implements Constants {
 
-	Robot1777 r;
-	Compressor compressor;
+	private Robot1777 r;
+	private Compressor compressor;
 	private boolean forceCompressorOff = false;
 	
 	/**

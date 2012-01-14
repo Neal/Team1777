@@ -33,8 +33,8 @@ import edu.wpi.first.wpilibj.Relay.Direction;
  */
 public class Claw implements Constants {
 
-	Relay claw;
-	Robot1777 r;
+	private Relay claw;
+	private Robot1777 r;
 
 	/**
 	 * Claw constructor

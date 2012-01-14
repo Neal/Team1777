@@ -36,9 +36,9 @@ import edu.wpi.first.wpilibj.image.NIVisionException;
  */
 public class Camera implements Constants {
 
-		Robot1777 r;
-		AxisCamera cam;
-		Servo camServo;
+		private Robot1777 r;
+		private AxisCamera cam;
+		private Servo camServo;
 		
 		/**
 		 * Camera constructor

@@ -33,10 +33,10 @@ import edu.wpi.first.wpilibj.SmartDashboard;
  */
 public class Drive implements Constants {
 
-	RobotDrive_ drive;
-//	RobotDrive drive14;
-//	RobotDrive drive32;
-	Robot1777 r;
+	private RobotDrive_ drive;
+//	private RobotDrive drive14;
+//	private RobotDrive drive32;
+	private Robot1777 r;
 	
 	/**
 	 * Drive constructor

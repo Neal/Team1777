@@ -33,7 +33,7 @@ import edu.wpi.first.wpilibj.Watchdog;
  */
 public class Autonomous implements Constants {
 	
-	Robot1777 r;
+	private Robot1777 r;
 	
 	boolean bLM = false, bRM = false, bLR = false; // b = between | Left Middle Right
 	boolean atL = false, atM = false, atR = false; // a = at | Left Middle Right
@@ -75,7 +75,7 @@ public class Autonomous implements Constants {
 			r.claw.close();
 
 		if(currentTime > 8 && currentTime < 12)
-			r.arm.setSpeed(-0.6);
+			r.arm.set(-0.6);
 
 		if(currentTime > 9 && currentTime < 12)
 			r.drive.setSpeed(0.5, 0.5, 0.5, 0.5);

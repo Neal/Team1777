@@ -24,8 +24,10 @@
 
 package vikingrobotics;
 
+import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SmartDashboard;
+import edu.wpi.first.wpilibj.SpeedController;
 
 /**
  * @author Neal
@@ -33,8 +35,9 @@ import edu.wpi.first.wpilibj.SmartDashboard;
  */
 public class Arm implements Constants {
 
-	Robot1777 r;
-	RobotDrive arm;
+	private Robot1777 r;
+//	private RobotDrive arm;
+	private SpeedController arm; // Haven't tested SpeedController
 	private double speed;
 
 	/**
@@ -44,7 +47,8 @@ public class Arm implements Constants {
 	public Arm(Robot1777 r, int channel, int dummy_channel) {
 		this.r = r;
 		System.out.println("[cRIO] Initializing Arm on channel " + channel);
-		arm = new RobotDrive(channel, dummy_channel);
+//		arm = new RobotDrive(channel, dummy_channel);
+		arm = new Jaguar(channel);
 		r.uM.write(USER_MESSAGES_ARM, "Arm: Unknown");
 	}
 	
@@ -52,9 +56,10 @@ public class Arm implements Constants {
 	 * Sets the speed for the arm.
 	 * @param speed The speed for the arm to set.
 	 */
-	void setSpeed(double speed) {
+	private void setSpeed(double speed) {
 		
-		arm.tankDrive(speed, 0);
+//		arm.tankDrive(speed, 0);
+		arm.set(speed);
 	}
 
 	/**
@@ -94,12 +99,10 @@ public class Arm implements Constants {
 	}
 
 	void test() {
-
 		double armSpeed = r.joystick2.getRawAxis(5) * 0.8;
-
 		if(armSpeed <= -0.2 || armSpeed >= 0.2)
-			arm.tankDrive(armSpeed, 0);
-		
+//			arm.tankDrive(armSpeed, 0);
+			arm.set(armSpeed);
 	}
 
 }

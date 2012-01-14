@@ -55,7 +55,6 @@ public class Robot1777 extends SimpleRobot implements Constants {
 	 */
 	public void robotInit() {
 
-			// Yeah, I know I need to organise this a little -- who care, it works :P
 			System.out.println("\n[cRIO] Robot initializing...");
 			
 			uM = new UserMessages(this);
@@ -68,7 +67,7 @@ public class Robot1777 extends SimpleRobot implements Constants {
 			drive = new Drive(this, DRIVE_FRONT_LEFT, DRIVE_REAR_LEFT, DRIVE_FRONT_RIGHT, DRIVE_REAR_RIGHT);
 			
 			gyro = new Gyro(GYRO_SLOT, GYRO_CHANNEL);
-			gamepad1 = new Gamepad(1);
+			gamepad1 = new Gamepad(JOYSTICK_1);
 //			joystick1 = new Joystick(JOYSTICK_1);
 			joystick2 = new Joystick(JOYSTICK_2);
 			joystick3 = new Joystick(JOYSTICK_3);
@@ -126,8 +125,6 @@ public class Robot1777 extends SimpleRobot implements Constants {
 					LineSensors.printUM();
 					compressor.run();
 					
-					boolean backButton = gamepad1.getButton(Gamepad_button_Back);
-					
 					// Force compressor
 					if(gamepad1.getButton(Gamepad_button_Back) && gamepad1.getButton(Gamepad_button_R_Shoulder)) compressor.forceStop();
 					if(gamepad1.getButton(Gamepad_button_Back) && gamepad1.getButton(Gamepad_button_L_Shoulder)) compressor.forceStart();
@@ -167,6 +164,8 @@ public class Robot1777 extends SimpleRobot implements Constants {
 					Timer.delay(0.005);   // Pause the loop for 0.005 seconds.
 			}
 
+			drive.stop();
+			compressor.stop();
 			System.out.println("[mode] Tele-operated stopped");
 	}
 

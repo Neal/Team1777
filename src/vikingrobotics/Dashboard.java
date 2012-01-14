@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.*;
  */
 public class Dashboard {
 	
-	Robot1777 r;
+	private Robot1777 r;
 
 	public Dashboard(Robot1777 r) {
 		this.r = r;
