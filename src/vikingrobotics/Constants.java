@@ -44,7 +44,6 @@ public interface Constants {
 
 	// Motor used to the arm
 	public static final int ARM_SLOT = 5;
-	public static final int ARM_DUMMY_SLOT = 6;
 
 	// Drive motors
 	public static final int DRIVE_FRONT_LEFT = 1;
@@ -67,7 +66,7 @@ public interface Constants {
 
 	// Gyroscope slots
 	public static final int GYRO_SLOT = 1;
-	public static final int GYRO_CHANNEL = 1;
+	public static final int GYRO_CHANNEL = 2;
 
 	// Compressor slot
 	public static final int COMPRESSOR_CHANNEL = 2;

@@ -47,7 +47,7 @@ public class Camera implements Constants {
 		public Camera(Robot1777 r, int servo_port) {
 			this.r = r;
 			camServo = new Servo(servo_port);
-			init();
+//			init();
 		}
 		
 		
@@ -62,27 +62,9 @@ public class Camera implements Constants {
 		 */
 		public void init() {
 
-			boolean cont = false;
 			Timer timer = new Timer();
 			timer.start();
 			cam = AxisCamera.getInstance();
-			while (!cont) {
-				try {
-					cam.getImage().free();
-					cont = true;
-				} catch (AxisCameraException e) {
-					if(Debug.getMode())
-						System.err.println("[ERROR] - AxisCamera error 1 --- " + e);
-				} catch (NIVisionException e) {
-					if(Debug.getMode())
-						System.err.println("[ERROR] - AxisCamera error 2 --- " + e);
-				}
-			}
-			timer.stop();
-			System.out.println("[cRIO] Camera initialized in " + timer.get() + " seconds");
-			timer.reset();
-
-			timer.start();
 			cam.writeBrightness(50);
 			cam.writeRotation(AxisCamera.RotationT.k180);
 			cam.writeResolution(AxisCamera.ResolutionT.k320x240);
@@ -90,7 +72,7 @@ public class Camera implements Constants {
 			cam.writeExposureControl(AxisCamera.ExposureT.automatic);
 			cam.writeExposurePriority(AxisCamera.ExposurePriorityT.frameRate);
 			timer.stop();
-			System.out.println("[cRIO] Wrote camera settings in " + timer.get() + " seconds");
+			System.out.println("[robot] Wrote camera settings in " + timer.get() + " seconds");
 			timer.reset();
 			
 		}

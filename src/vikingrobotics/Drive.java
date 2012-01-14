@@ -33,9 +33,9 @@ import edu.wpi.first.wpilibj.SmartDashboard;
  */
 public class Drive implements Constants {
 
-	private RobotDrive_ drive;
-//	private RobotDrive drive14;
-//	private RobotDrive drive32;
+//	private RobotDrive_ drive;
+	private RobotDrive drive14;
+	private RobotDrive drive32;
 	private Robot1777 r;
 	
 	/**
@@ -48,9 +48,9 @@ public class Drive implements Constants {
 		Debug.println("[cRIO] Initializing front right motor on channel " + frontRight);
 		Debug.println("[cRIO] Initializing rear left motor on channel " + rearLeft);
 		Debug.println("[cRIO] Initializing rear right motor on channel " + rearRight);
-		drive = new RobotDrive_(frontLeft, rearLeft, frontRight, rearRight);
-//		drive14 = new RobotDrive(frontLeft, rearRight);
-//		drive32 = new RobotDrive(rearLeft, frontRight);
+//		drive = new RobotDrive_(frontLeft, rearLeft, frontRight, rearRight);
+		drive14 = new RobotDrive(frontLeft, rearRight);
+		drive32 = new RobotDrive(rearLeft, frontRight);
 	}
 
 	
@@ -66,9 +66,9 @@ public class Drive implements Constants {
 	 */
 	protected void setSpeed(double fL, double fR, double rL, double rR) {
 
-		drive.setSpeed(fL, fR, rL, rR);
-//		drive14.tankDrive(fL, rR);
-//		drive32.tankDrive(rL, fR);
+//		drive.setSpeed(fL, fR, rL, rR);
+		drive14.tankDrive(fL, rR);
+		drive32.tankDrive(rL, fR);
 	}
 
 	
@@ -148,7 +148,7 @@ public class Drive implements Constants {
 	 * @param d Double that needs to be rounded up.
 	 */
 	private double roundDecimals(double d) {
-		return Math.ceil(d * 1000.0) / 1000.0;
+		return Math.ceil(d * 100.0) / 100.0;
 	}
 
 }

@@ -25,7 +25,6 @@
 package vikingrobotics;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Watchdog;
 
 /**
  *
@@ -57,8 +56,8 @@ public class Autonomous implements Constants {
 	public void init() {
 		
 		startTime = Timer.getFPGATimestamp();
-		r.LineSensors.printUM();
-		r.compressor.start();
+//		r.LineSensors.printUM();
+//		r.compressor.start();
 		this.startTime = 0;
 		this.currentTime = 0;
 	}
@@ -84,7 +83,7 @@ public class Autonomous implements Constants {
 	
 	private void driveTillCross() {
 
-		this.atL = r.LineSensors.atL();
+/*		this.atL = r.LineSensors.atL();
 		this.atM = r.LineSensors.atM();
 		this.atR = r.LineSensors.atR();
 		
@@ -106,7 +105,7 @@ public class Autonomous implements Constants {
 				r.drive.setSpeed(d4, d4, d4, d4); // We should only get here if it doesn't know where it is, which most likely be when we start if they don't place it right.
 			}
 		}
-
+*/
 	}
 	
 	/**
