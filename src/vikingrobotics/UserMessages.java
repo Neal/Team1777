@@ -52,7 +52,7 @@ public class UserMessages {
 	 */
 	public UserMessages(Robot1777 r) {
 		this.r = r;
-		System.out.println("[cRIO] Initializing user messages");
+		System.out.println("[robot] Initializing user messages");
 		init();
 	}
 

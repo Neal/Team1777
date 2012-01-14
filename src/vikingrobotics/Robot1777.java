@@ -151,22 +151,25 @@ public class Robot1777 extends SimpleRobot implements Constants {
 					// Gyro Code
 					gyroAngle = (int) gyro.getAngle();
 					if(gamepad1.getButton(Gamepad_button_Back)) gyro.reset();
-					if(gyroAngle >= 360) gyro.reset();
-					if(gyroAngle <=-360) gyro.reset();
+					if(gyroAngle >= 360 || gyroAngle <= -360) gyro.reset();
 					uM.write(USER_MESSAGES_COMPRESSOR, "Gyro: " + gyroAngle);
+					
+					for(int b=1; b<13; b++) {
+						if(gamepad1.getRawButton(b)) Debug.println("Button pressed: " + b);
+					}
 					
 					
 					if(gamepad1.getButton(Gamepad_button_Start)) {
 						double s = 0.6;
 						if(gyroAngle < -2) drive.setSpeed(s, s, s, s);
 						else if(gyroAngle > 2) drive.setSpeed(-s, -s, -s, -s);
-						else drive.mecanumDrive(0.0, 0.0, 0.0);
+						else drive.setSpeed(0.0, 0.0, 0.0, 0.0);
 					}
 					else {
 					// Driving Code
-					drive.mecanumDrive(gamepad1.getRawAxis(Gamepad_leftStick_X),
-									  -gamepad1.getRawAxis(Gamepad_leftStick_Y),
-									  -gamepad1.getRawAxis(Gamepad_shoulderAxis));
+					drive.mecanumDrive(gamepad1.getAxis(Gamepad_leftStick_X),
+									  -gamepad1.getAxis(Gamepad_leftStick_Y),
+									  -gamepad1.getAxis(Gamepad_shoulderAxis));
 					}
 					
 					Timer.delay(0.005);   // Pause the loop for 0.005 seconds.

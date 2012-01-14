@@ -44,10 +44,10 @@ public class Drive implements Constants {
 	 */
 	public Drive(Robot1777 r, int frontLeft, int rearLeft, int frontRight, int rearRight) {
 		this.r = r;
-		Debug.println("[cRIO] Initializing front left motor on channel " + frontLeft);
-		Debug.println("[cRIO] Initializing front right motor on channel " + frontRight);
-		Debug.println("[cRIO] Initializing rear left motor on channel " + rearLeft);
-		Debug.println("[cRIO] Initializing rear right motor on channel " + rearRight);
+		Debug.println("[robot] Initializing front left motor on channel " + frontLeft);
+		Debug.println("[robot] Initializing front right motor on channel " + frontRight);
+		Debug.println("[robot] Initializing rear left motor on channel " + rearLeft);
+		Debug.println("[robot] Initializing rear right motor on channel " + rearRight);
 //		drive = new RobotDrive_(frontLeft, rearLeft, frontRight, rearRight);
 		drive14 = new RobotDrive(frontLeft, rearRight);
 		drive32 = new RobotDrive(rearLeft, frontRight);
