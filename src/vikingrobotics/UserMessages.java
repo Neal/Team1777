@@ -34,8 +34,8 @@ import edu.wpi.first.wpilibj.DriverStationLCD.Line;
  */
 public class UserMessages {
 	
-	DriverStationLCD uM = DriverStationLCD.getInstance();
-	Robot1777 r;
+	private DriverStationLCD uM = DriverStationLCD.getInstance();
+	private Robot1777 r;
 	
 	public static final Line[] line = {
 		DriverStationLCD.Line.kMain6,

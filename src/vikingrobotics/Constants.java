@@ -24,6 +24,8 @@
 
 package vikingrobotics;
 
+import edu.wpi.first.wpilibj.Relay;
+
 /**
  *
  * @author Neal
@@ -31,71 +33,99 @@ package vikingrobotics;
 public interface Constants {
 
 	// Joysticks
-	public static final int JOYSTICK_1 = 1;
-	public static final int JOYSTICK_2 = 2;
-	public static final int JOYSTICK_3 = 3;
-	public static final int JOYSTICK_4 = 4;
+	public static final int kJoystick1 = 1;
+	public static final int kJoystick2 = 2;
+	public static final int kJoystick3 = 3;
+	public static final int kJoystick4 = 4;
+	public static final double kJoystickThreshold = 0.2;
 
-	// Motor used with the camera
-	public static final int CAM_SERVO = 9;
+	// Motor used by the camera
+	public static final int kCamServoSlot = 1;
+	public static final int kCamServoChannel = 9;
 
 	// The claw mechanism
-	public static final int CLAW_SLOT = 4;
+	public static final int kClawModule = 1;
+	public static final int kClawChannel = 4;
+	public static final Relay.Direction kClawDirection = Relay.Direction.kBoth;
 
-	// Motor used to the arm
-	public static final int ARM_SLOT = 5;
+	// Motor used by the arm
+	public static final int kArmSlot = 1;
+	public static final int kArmChannel = 5;
 
 	// Drive motors
-	public static final int DRIVE_FRONT_LEFT = 1;
-	public static final int DRIVE_FRONT_RIGHT = 2;
-	public static final int DRIVE_REAR_LEFT = 3;
-	public static final int DRIVE_REAR_RIGHT = 4;
+	public static final int kFrontLeftMotor = 1;
+	public static final int kFrontRightMotor = 2;
+	public static final int kRearLeftMotor = 3;
+	public static final int kRearRightMotor = 4;
 
 	// Line sensors
-	public static final int LINESENSOR_LEFT = 10;
-	public static final int LINESENSOR_MIDDLE = 9;
-	public static final int LINESENSOR_RIGHT = 8;
+	public static final int kLineSensorModule = 1;
+	public static final int kLineSensorLeft = 10;
+	public static final int kLineSensorMiddle = 9;
+	public static final int kLineSensorRight = 8;
 
 	// User Messages
-	public static final int USER_MESSAGES_MODE = 1;
-	public static final int USER_MESSAGES_DRIVE = 2;
-	public static final int USER_MESSAGES_LINESENSORS = 3;
-	public static final int USER_MESSAGES_ARM = 4;
-	public static final int USER_MESSAGES_CLAW = 5;
-	public static final int USER_MESSAGES_COMPRESSOR = 6;
+	public static final int kUserMessages1 = 1;
+	public static final int kUserMessages2 = 2;
+	public static final int kUserMessages3 = 3;
+	public static final int kUserMessages4 = 4;
+	public static final int kUserMessages5 = 5;
+	public static final int kUserMessages6 = 6;
+	public static final int[] kUserMessagesLine = {kUserMessages1, kUserMessages2, kUserMessages3, kUserMessages4, kUserMessages5, kUserMessages6};
 
-	// Gyroscope slots
-	public static final int GYRO_SLOT = 1;
-	public static final int GYRO_CHANNEL = 2;
+	// Gyroscope slot
+	public static final int kGyroSlot = 1;
+	public static final int kGyroChannel = 2;
 
-	// Compressor slot
-	public static final int COMPRESSOR_CHANNEL = 2;
-	public static final int COMPRESSOR_RELAY = 2;
-
-	// Setting for debug mode
-	public static final boolean DEBUG_MODE = true;
+	// Compressor slot and relay
+	public static final int kCompressorPressureSwitchSlot = 1;
+	public static final int kCompressorPressureSwitchChannel = 2;
+	public static final int kCompressorRelaySlot = 1;
+	public static final int kCompressorRelayChannel = 2;
 	
-	// Gamepad Axis
-	public static final int Gamepad_leftStick_X = 1;
-	public static final int Gamepad_leftStick_Y = 2;
-	public static final int Gamepad_shoulderAxis = 3;
-	public static final int Gamepad_rightStick_X = 4;
-	public static final int Gamepad_rightStick_Y = 5;
-	public static final int Gamepad_dpadAxis = 6;
+	// Gamepad axis
+	public static final int kGamepadAxisLeftStickX = 1;
+	public static final int kGamepadAxisLeftStickY = 2;
+	public static final int kGamepadAxisShoulder = 3;
+	public static final int kGamepadAxisRightStickX = 4;
+	public static final int kGamepadAxisRightStickY = 5;
+	public static final int kGamepadAxisDpad = 6;
 
 	// Gamepad buttons
-	public static final int Gamepad_button_A = 1; // Bottom Button
-	public static final int Gamepad_button_B = 2; // Right Button
-	public static final int Gamepad_button_X = 3; // Left Button
-	public static final int Gamepad_button_Y = 4; // Top Button
-	public static final int Gamepad_button_L_Shoulder = 5;
-	public static final int Gamepad_button_R_Shoulder = 6;
-	public static final int Gamepad_button_Back = 7;
-	public static final int Gamepad_button_Start = 8;
-	public static final int Gamepad_button_LeftStick = 9;
-	public static final int Gamepad_button_RightStick = 10;		// Need to double check if all buttons are correct.
-	
-	// Minimum Joystick value
-	public static final double kMinimumJoystickValue = 0.2;
+	public static final int kGamepadButtonA = 1; // Bottom Button
+	public static final int kGamepadButtonB = 2; // Right Button
+	public static final int kGamepadButtonX = 3; // Left Button
+	public static final int kGamepadButtonY = 4; // Top Button
+	public static final int kGamepadButtonShoulderL = 5;
+	public static final int kGamepadButtonShoulderR = 6;
+	public static final int kGamepadButtonBack = 7;
+	public static final int kGamepadButtonStart = 8;
+	public static final int kGamepadButtonLeftStick = 9;
+	public static final int kGamepadButtonRightStick = 10;	// Need to double check if all buttons are correct.
+	public static final int kGamepadButtonMode = -1;
+	public static final int kGamepadButtonLogitech = -1;
+
+	// Joystick axis
+	public static final int kJoystickAxisX = 1;
+	public static final int kJoystickAxisY = 2;
+	public static final int kJoystickAxisZ = 3;
+
+	// Joystick buttons
+	public static final int kJoystickButton1 = 1;
+	public static final int kJoystickButton2 = 2;
+	public static final int kJoystickButton3 = 3;
+	public static final int kJoystickButton4 = 4;
+	public static final int kJoystickButton5 = 5;
+	public static final int kJoystickButton6 = 6;
+	public static final int kJoystickButton7 = 7;
+	public static final int kJoystickButton8 = 8;
+	public static final int kJoystickButton9 = 9;
+	public static final int kJoystickButton10 = 10;
+	public static final int kJoystickButton11 = 11;
+	public static final int kJoystickButton12 = 12;
+	public static final int kJoystickButtonTrigger = 1;
+
+	// Setting for debug mode
+	public static final boolean kDebugMode = true;
 
 }

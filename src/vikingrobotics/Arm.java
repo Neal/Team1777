@@ -25,7 +25,6 @@
 package vikingrobotics;
 
 import edu.wpi.first.wpilibj.Jaguar;
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SmartDashboard;
 import edu.wpi.first.wpilibj.SpeedController;
 
@@ -36,18 +35,18 @@ import edu.wpi.first.wpilibj.SpeedController;
 public class Arm implements Constants {
 
 	private Robot1777 r;
-	private SpeedController arm; // Haven't tested SpeedController
+	private SpeedController armMotor;
 	private double speed;
 
 	/**
 	 * Arm constructor
 	 * 
 	 */
-	public Arm(Robot1777 r, int channel) {
+	public Arm(Robot1777 r, int slot, int channel) {
 		this.r = r;
 		System.out.println("[robot] Initializing Arm on channel " + channel);
-		arm = new Jaguar(channel);
-		r.uM.write(USER_MESSAGES_ARM, "Arm: Unknown");
+		armMotor = new Jaguar(slot, channel);
+		updateUserMessages("Arm: Unknown");
 	}
 	
 	/**
@@ -56,7 +55,7 @@ public class Arm implements Constants {
 	 */
 	private void setSpeed(double speed) {
 		
-		arm.set(speed);
+		armMotor.set(speed);
 	}
 
 	/**
@@ -72,19 +71,23 @@ public class Arm implements Constants {
 		
 		
 		if(getSpeed() < 0)
-			r.uM.write(USER_MESSAGES_ARM, "Arm: Moving Upwards");
+			updateUserMessages("Arm: Moving Upwards");
 		
 		else if(getSpeed() > 0)
-			r.uM.write(USER_MESSAGES_ARM, "Arm: Moving Downwards");
+			updateUserMessages("Arm: Moving Downwards");
 
 		else if(getSpeed() == 0)
-			r.uM.write(USER_MESSAGES_ARM, "Arm: Not moving");
+			updateUserMessages("Arm: Not moving");
 		
 		else
-			r.uM.write(USER_MESSAGES_ARM, "Arm: Unknown.");
+			updateUserMessages("Arm: Unknown.");
 
 		setSpeed(getSpeed());
 		SmartDashboard.log(getSpeed(), "Arm");
+	}
+	
+	public void updateUserMessages(String message) {
+		r.uM.write(kUserMessages4, message);
 	}
 	
 	public double getSpeed() {
@@ -93,12 +96,6 @@ public class Arm implements Constants {
 	
 	public void stop() {
 		setSpeed(0);
-	}
-
-	void test() {
-		double armSpeed = r.joystick2.getRawAxis(5) * 0.8;
-		if(armSpeed <= -0.2 || armSpeed >= 0.2)
-			arm.set(armSpeed);
 	}
 
 }

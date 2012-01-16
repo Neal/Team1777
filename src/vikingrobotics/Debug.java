@@ -35,25 +35,25 @@ public class Debug implements Constants {
      * @param s
      */
     public static void print(String s) {
-        if (DEBUG_MODE) {
+        if (kDebugMode) {
             System.out.print(s);
         }
     }
 
     public static void print(int s) {
-        if (DEBUG_MODE) {
+        if (kDebugMode) {
             System.out.print(s);
         }
     }
 
     public static void print(double s) {
-        if (DEBUG_MODE) {
+        if (kDebugMode) {
             System.out.print(s);
         }
     }
 
     public static void print(boolean s) {
-        if (DEBUG_MODE) {
+        if (kDebugMode) {
             System.out.print(s);
         }
     }
@@ -63,25 +63,25 @@ public class Debug implements Constants {
      * @param s
      */
     public static void println(String s) {
-        if (DEBUG_MODE) {
+        if (kDebugMode) {
             System.out.println(s);
         }
     }
 
     public static void println(double s) {
-        if (DEBUG_MODE) {
+        if (kDebugMode) {
             System.out.println(s);
         }
     }
 
     public static void println(int s) {
-        if (DEBUG_MODE) {
+        if (kDebugMode) {
             System.out.println(s);
         }
     }
 
     public static void println(boolean s) {
-        if (DEBUG_MODE) {
+        if (kDebugMode) {
             System.out.println(s);
         }
     }
@@ -91,6 +91,6 @@ public class Debug implements Constants {
      * @return DEBUG_MODE
      */
     public static boolean getMode() {
-        return DEBUG_MODE;
+        return kDebugMode;
     }
 }

@@ -40,11 +40,11 @@ public class Claw implements Constants {
 	 * Claw constructor
 	 * 
 	 */
-	public Claw(Robot1777 r, int channel, Direction direction) {
+	public Claw(Robot1777 r, int moduleNumber, int channel, Direction direction) {
 		this.r = r;
 		System.out.println("[robot] Initializing Claw on channel " + channel);
-		claw = new Relay(channel, direction);
-		r.uM.write(USER_MESSAGES_CLAW, "Claw: Unknown");
+		claw = new Relay(moduleNumber, channel, direction);
+		updateUserMessages("Claw: Unknown");
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class Claw implements Constants {
 	 */
 	public void open() {
 
-		r.uM.write(USER_MESSAGES_CLAW, "Claw: OPEN");
+		updateUserMessages("Claw: OPEN");
 		claw.set(Relay.Value.kForward);
 	}
 	
@@ -63,8 +63,12 @@ public class Claw implements Constants {
 	 */
 	public void close() {
 
-		r.uM.write(USER_MESSAGES_CLAW, "Claw: CLOSE");
+		updateUserMessages("Claw: CLOSE");
 		claw.set(Relay.Value.kReverse);
+	}
+	
+	public void updateUserMessages(String message) {
+		r.uM.write(kUserMessages5, message);
 	}
 
 }

@@ -33,19 +33,18 @@ import edu.wpi.first.wpilibj.*;
  */
 public class Robot1777 extends SimpleRobot implements Constants {
 
-	Arm arm;
-	Autonomous autonomous;
-	Camera cam;
-	Claw claw;
-//	Compressorr compressor;
-	Drive drive;
-	Gyro gyro;
-	Joystick joystick2, joystick3, joystick4;
-	Gamepad gamepad1;
-//	LineSensors LineSensors;
-	SmartDashboard smartDB;
-	UserMessages uM;
-	Watchdog watchdog;
+	public Arm arm;
+	public Autonomous autonomous;
+	public Camera cam;
+	public Claw claw;
+//	public Compressorr compressor;
+	public Drive drive;
+	public Gyro gyro;
+//	public Joystick joystick2, joystick3, joystick4;
+//	public Gamepad gamepad1;
+	public Gamepad js1, js2, js3, js4;
+//	public LineSensors LineSensors;
+	public UserMessages uM;
 
 
 	/**
@@ -55,28 +54,28 @@ public class Robot1777 extends SimpleRobot implements Constants {
 	 */
 	public void robotInit() {
 
-			System.out.println("\n[robot] Robot initializing...");
-			
-			uM = new UserMessages(this);
-			autonomous = new Autonomous(this);
-			cam = new Camera(this, CAM_SERVO);
-			arm = new Arm(this, ARM_SLOT);
-			claw = new Claw(this, CLAW_SLOT, Relay.Direction.kBoth);
-//			compressor = new Compressorr(this, COMPRESSOR_CHANNEL, COMPRESSOR_RELAY);
-//			LineSensors = new LineSensors(this, LINESENSOR_LEFT, LINESENSOR_MIDDLE, LINESENSOR_RIGHT);
-			drive = new Drive(this, DRIVE_FRONT_LEFT, DRIVE_REAR_LEFT, DRIVE_FRONT_RIGHT, DRIVE_REAR_RIGHT);
-			gyro = new Gyro(GYRO_SLOT, GYRO_CHANNEL);
-			
-			gamepad1 = new Gamepad(JOYSTICK_1);
-//			joystick1 = new Joystick(JOYSTICK_1);
-			joystick2 = new Joystick(JOYSTICK_2);
-			joystick3 = new Joystick(JOYSTICK_3);
-			joystick4 = new Joystick(JOYSTICK_4);
-			
-			Watchdog.getInstance();
-			SmartDashboard.init();
-			
-			System.out.println("[robot] Robot Ready!\n");
+		System.out.println("\n[robot] Robot initializing...");
+		
+		uM = new UserMessages(this);
+		autonomous = new Autonomous(this);
+		cam = new Camera(this, kCamServoSlot, kCamServoChannel);
+		arm = new Arm(this, kArmSlot, kArmChannel);
+		claw = new Claw(this, kClawModule, kClawChannel, kClawDirection);
+//		compressor = new Compressorr(this, kCompressorPressureSwitchSlot, kCompressorPressureSwitchChannel, kCompressorRelaySlot, kCompressorRelayChannel);
+//		LineSensors = new LineSensors(this, kLineSensorModule, kLineSensorLeft, kLineSensorMiddle, kLineSensorRight);
+		drive = new Drive(this, kFrontLeftMotor, kRearLeftMotor, kFrontRightMotor, kRearRightMotor);
+		gyro = new Gyro(kGyroSlot, kGyroChannel);
+		
+		js1 = new Gamepad(kJoystick1);
+		js2 = new Gamepad(kJoystick2);
+		js3 = new Gamepad(kJoystick3);
+		js4 = new Gamepad(kJoystick4);
+		
+		Watchdog.getInstance();
+		SmartDashboard.init();
+		SmartDashboard.useProfile("save.xml");
+
+		System.out.println("[robot] Robot Ready!\n");
 	}
 
 
@@ -87,18 +86,18 @@ public class Robot1777 extends SimpleRobot implements Constants {
 	 */
 	public void autonomous() {
 
-			System.out.println("[mode] Autonomous started");
-			uM.write(USER_MESSAGES_MODE, "Autonomous Mode");
-//			autonomous.init();
+		System.out.println("[mode] Autonomous started");
+		uM.write(kUserMessages1, "Autonomous Mode");
+//		autonomous.init();
+		
+		while (isAutonomous() && isEnabled()) {
 			
-			while (isAutonomous() && isEnabled()) {
-				
-				getWatchdog().feed();
-//				autonomous.run();
-				Timer.delay(0.005);
-			}
-			
-			System.out.println("[mode] Autonomous stopped");
+			getWatchdog().feed();
+//			autonomous.run();
+			Timer.delay(0.005);
+		}
+		
+		System.out.println("[mode] Autonomous stopped");
 	}
 
 
@@ -109,74 +108,62 @@ public class Robot1777 extends SimpleRobot implements Constants {
 	 */
 	public void operatorControl() {
 
-			System.out.println("[mode] Tele-operated started");
-			SmartDashboard.log("Tele-Operated", "MODE ");
-			uM.write(USER_MESSAGES_MODE, "~ TELE-OP MODE ~");
-			getWatchdog().setEnabled(true);
-			gyro.reset();
-			gyro.setSensitivity(0.007);
-//			compressor.start();
-			int gyroAngle = 0;
+		System.out.println("[mode] Tele-operated started");
+		SmartDashboard.log("Tele-Operated", "MODE ");
+		uM.write(kUserMessages1, "~ TELE-OP MODE ~");
+		getWatchdog().setEnabled(true);
+		gyro.reset();
+		gyro.setSensitivity(0.007);
+//		compressor.start();
+		int gyroAngle = 0;
 
+		
+		while(isOperatorControl() && isEnabled()) {
+
+			getWatchdog().feed();   // Damn watchdog gets hungry every 0.005 seconds.
+//			LineSensors.printUM();
+//			compressor.run();
 			
-			while(isOperatorControl() && isEnabled()) {
-
-					getWatchdog().feed();   // Damn watchdog gets hungry every 0.005 seconds.
-//					LineSensors.printUM();
-//					compressor.run();
-					
-					// Force compressor
-//					if(gamepad1.getRawButton(Gamepad_button_Back) && gamepad1.getRawButton(Gamepad_button_R_Shoulder)) compressor.forceStop();
-//					if(gamepad1.getRawButton(Gamepad_button_Back) && gamepad1.getRawButton(Gamepad_button_L_Shoulder)) compressor.forceStart();
-					
-					// Arm code
-					arm.set(gamepad1.getRawAxis(Gamepad_rightStick_Y) * 0.8);
-					
-					// Camera Code
-					if(gamepad1.getRawButton(Gamepad_button_LeftStick) || gamepad1.getRawButton(11))
-						cam.setAngle(cam.getAngle() - 2);
-					
-					if(gamepad1.getRawButton(Gamepad_button_RightStick) || gamepad1.getRawButton(12))
-						cam.setAngle(cam.getAngle() + 2);
-					
-					// Claw Code
-					if(gamepad1.getRawButton(Gamepad_button_A) || joystick2.getRawButton(1) ||
-					   gamepad1.getRawButton(Gamepad_button_X) || joystick2.getRawButton(3))
-							claw.open();
-					
-					if(gamepad1.getRawButton(Gamepad_button_B) || joystick2.getRawButton(2) ||
-					   gamepad1.getRawButton(Gamepad_button_Y) || joystick2.getRawButton(4))
-							claw.close();
-					
-					// Gyro Code
-					gyroAngle = (int) gyro.getAngle();
-					if(gamepad1.getButton(Gamepad_button_Back)) gyro.reset();
-					if(gyroAngle >= 360 || gyroAngle <= -360) gyro.reset();
-					uM.write(USER_MESSAGES_COMPRESSOR, "Gyro: " + gyroAngle);
-					
-					for(int b=1; b<13; b++) {
-						if(gamepad1.getRawButton(b)) Debug.println("Button pressed: " + b);
-					}
-					
-					
-					if(gamepad1.getButton(Gamepad_button_Start)) {
-						double s = 0.6;
-						if(gyroAngle < -2) drive.setSpeed(s, s, s, s);
-						else if(gyroAngle > 2) drive.setSpeed(-s, -s, -s, -s);
-						else drive.setSpeed(0.0, 0.0, 0.0, 0.0);
-					}
-					else {
-					// Driving Code
-					drive.mecanumDrive(gamepad1.getAxis(Gamepad_leftStick_X),
-									  -gamepad1.getAxis(Gamepad_leftStick_Y),
-									  -gamepad1.getAxis(Gamepad_shoulderAxis));
-					}
-					
-					Timer.delay(0.005);   // Pause the loop for 0.005 seconds.
+			// Force compressor
+//			if(js1.getButton(kGamepadButtonBack) && js1.getButton(kGamepadButtonShoulderL)) compressor.forceStop();
+//			if(js1.getButton(kGamepadButtonBack) && js1.getButton(kGamepadButtonShoulderR)) compressor.forceStart();
+			
+			// Arm code
+			arm.set(js1.getAxis(kGamepadAxisRightStickY) * 0.8);
+			
+			// Camera Code
+			if(js1.getButton(kGamepadButtonLeftStick)) cam.setAngle(cam.getAngle() - 2);
+			if(js1.getButton(kGamepadButtonRightStick)) cam.setAngle(cam.getAngle() + 2);
+			
+			// Claw Code
+			if(js1.getButton(kGamepadButtonA) || js1.getButton(kGamepadButtonX)) claw.open();
+			if(js1.getButton(kGamepadButtonB) || js1.getButton(kGamepadButtonY)) claw.close();
+			
+			// Gyro Code
+			gyroAngle = (int) gyro.getAngle();
+			if(js1.getButton(kGamepadButtonBack) || gyroAngle >= 360 || gyroAngle <= -360) gyro.reset();
+			uM.write(kUserMessages6, "Gyro: " + gyroAngle);
+			
+			for(int b=1; b<13; b++) {
+				if(js1.getButton(b)) Debug.println("[js1] Button pressed: " + b);
 			}
+			
+			if(js1.getButton(kGamepadButtonStart)) {
+				double s = 0.6;
+				if(gyroAngle < -2) drive.setSpeed(s, s, s, s);
+				else if(gyroAngle > 2) drive.setSpeed(-s, -s, -s, -s);
+				else drive.setSpeed(0.0, 0.0, 0.0, 0.0);
+			}
+			else {
+			// Driving Code
+			drive.mecanumDrive(js1.getAxis(kGamepadAxisLeftStickX), -js1.getAxis(kGamepadAxisLeftStickY), -js1.getAxis(kGamepadAxisShoulder));
+			}
+			
+			Timer.delay(0.005);   // Pause the loop for 0.005 seconds.
+		}
 
-			drive.stop();
-			System.out.println("[mode] Tele-operated stopped");
+		drive.stop();
+		System.out.println("[mode] Tele-operated stopped");
 	}
 
 
@@ -187,12 +174,12 @@ public class Robot1777 extends SimpleRobot implements Constants {
 	 */
 	public void disabled() {
 
-			uM.write(USER_MESSAGES_MODE, "~ DISABLED MODE ~");
-			System.out.println("[mode] Disabled");
-//			compressor.stop();
-			drive.stop();
-			arm.stop();
-			while(isDisabled())	getWatchdog().feed();
+		uM.write(kUserMessages1, "~ DISABLED MODE ~");
+		System.out.println("[mode] Disabled");
+//		compressor.stop();
+		drive.stop();
+		arm.stop();
+		while(isDisabled())	getWatchdog().feed();
 	}
 
 }

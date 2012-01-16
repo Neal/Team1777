@@ -25,6 +25,8 @@
 package vikingrobotics;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.Joystick.AxisType;
 
 /**
  * @author Neal
@@ -78,7 +80,40 @@ public class Gamepad extends Joystick implements Constants {
 		return deadZone(super.getRawAxis(axis));
 	}
 
-	
+	/**
+	 * Get the X value of the joystick.
+	 * This depends on the mapping of the joystick connected to the current port.
+	 *
+	 * @param hand Unused
+	 * @return The X value of the joystick.
+	 */
+	public double getX(Hand hand) {
+		return deadZone(super.getX());
+	}
+
+	/**
+	 * Get the Y value of the joystick.
+	 * This depends on the mapping of the joystick connected to the current port.
+	 *
+	 * @param hand Unused
+	 * @return The Y value of the joystick.
+	 */
+	public double getY(Hand hand) {
+		return deadZone(super.getY());
+	}
+
+	/**
+	 * Get the Z value of the joystick.
+	 * This depends on the mapping of the joystick connected to the current port.
+	 *
+	 * @param hand Unused
+	 * @return The Z value of the joystick.
+	 */
+	public double getZ(Hand hand) {
+		return deadZone(super.getZ());
+	}
+
+
 	/**
 	 * Overwrite joystick values in a way that 0.0-1.0 is proportional to 0.2-1.0
 	 * @param x The joystick value that needs to be rounded up.
@@ -86,10 +121,10 @@ public class Gamepad extends Joystick implements Constants {
 	private double deadZone(double x) {
 		
 		if (x > 1) return 1;
-		if (Math.abs(x) < kMinimumJoystickValue) return 0;
-		double scaledSlope = 1 / (1 - kMinimumJoystickValue);
-		if (x > 0) return (x - kMinimumJoystickValue) * scaledSlope;
-		return (x + kMinimumJoystickValue) * scaledSlope;
+		if (Math.abs(x) < kJoystickThreshold) return 0;
+		double scaledSlope = 1 / (1 - kJoystickThreshold);
+		if (x > 0) return (x - kJoystickThreshold) * scaledSlope;
+		return (x + kJoystickThreshold) * scaledSlope;
 	}
 
 }

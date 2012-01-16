@@ -107,7 +107,7 @@ public class FileIO {
 			String message = System.currentTimeMillis() + " [" + context + "] " + e.getMessage() + ": " + customMessage + "\n";
 			log.append(message);
 
-			if (Debug.DEBUG_MODE) {
+			if (Debug.kDebugMode) {
 				e.printStackTrace();
 			}
 		} catch (Exception ex) {

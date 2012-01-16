@@ -33,7 +33,7 @@ import edu.wpi.first.wpilibj.SmartDashboard;
  */
 public class Drive implements Constants {
 
-//	private RobotDrive_ drive;
+//	private RobotDrive drive;
 	private RobotDrive drive14;
 	private RobotDrive drive32;
 	private Robot1777 r;
@@ -48,7 +48,7 @@ public class Drive implements Constants {
 		Debug.println("[robot] Initializing front right motor on channel " + frontRight);
 		Debug.println("[robot] Initializing rear left motor on channel " + rearLeft);
 		Debug.println("[robot] Initializing rear right motor on channel " + rearRight);
-//		drive = new RobotDrive_(frontLeft, rearLeft, frontRight, rearRight);
+//		drive = new RobotDrive(leftMotorChannel, rightMotorChannel);
 		drive14 = new RobotDrive(frontLeft, rearRight);
 		drive32 = new RobotDrive(rearLeft, frontRight);
 	}
@@ -66,7 +66,6 @@ public class Drive implements Constants {
 	 */
 	protected void setSpeed(double fL, double fR, double rL, double rR) {
 
-//		drive.setSpeed(fL, fR, rL, rR);
 		drive14.tankDrive(fL, rR);
 		drive32.tankDrive(rL, fR);
 	}
@@ -92,9 +91,7 @@ public class Drive implements Constants {
 		double rearLeft   = Y + Z - X;
 		double rearRight  = Y - Z + X;
 
-		r.uM.write(USER_MESSAGES_DRIVE, "X: " + roundDecimals(X) +
-									 " | Y: " + roundDecimals(Y) +
-									 " | Z: " + roundDecimals(Z));
+		r.uM.write(kUserMessages2, "X " + roundDecimals(X) + " Y " + roundDecimals(Y) + " Z " + roundDecimals(Z));
 
 		SmartDashboard.log(X, "X");
 		SmartDashboard.log(Y, "Y");
@@ -125,13 +122,12 @@ public class Drive implements Constants {
 	
 	/**
 	 * Provide tank steering using the stored robot configuration.
-	 * @param left The value of the left stick.
-	 * @param right The value of the right stick.
+	 * @param leftValue The value for the left motor.
+	 * @param rightValue The value for the right motor.
 	 */
-	public void tankDrive(double left, double right) {
+	public void tankDrive(double leftValue, double rightValue) {
 
-//		drive14.tankDrive(left, right); // Who does tank drive these days?!?!
-//		drive32.tankDrive(left, right);
+//		drive.tankDrive(leftValue, rightValue);
 	}
 
 	

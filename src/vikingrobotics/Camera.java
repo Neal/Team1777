@@ -44,9 +44,9 @@ public class Camera implements Constants {
 		 * Camera constructor
 		 * 
 		 */
-		public Camera(Robot1777 r, int servo_port) {
+		public Camera(Robot1777 r, int slot, int channel) {
 			this.r = r;
-			camServo = new Servo(servo_port);
+			camServo = new Servo(slot, channel);
 //			init();
 		}
 		
@@ -62,8 +62,6 @@ public class Camera implements Constants {
 		 */
 		public void init() {
 
-			Timer timer = new Timer();
-			timer.start();
 			cam = AxisCamera.getInstance();
 			cam.writeBrightness(50);
 			cam.writeRotation(AxisCamera.RotationT.k180);
@@ -71,9 +69,6 @@ public class Camera implements Constants {
 			cam.writeWhiteBalance(AxisCamera.WhiteBalanceT.automatic);
 			cam.writeExposureControl(AxisCamera.ExposureT.automatic);
 			cam.writeExposurePriority(AxisCamera.ExposurePriorityT.frameRate);
-			timer.stop();
-			System.out.println("[robot] Wrote camera settings in " + timer.get() + " seconds");
-			timer.reset();
 			
 		}
 		

@@ -41,11 +41,11 @@ public class Compressorr implements Constants {
 	 * Compressorr constructor
 	 * 
 	 */
-	public Compressorr(Robot1777 r, int channel, int relay) {
+	public Compressorr(Robot1777 r, int pressureSwitchSlot, int pressureSwitchChannel, int compressorRelaySlot, int compressorRelayChannel) {
 		this.r = r;
-		System.out.println("[robot] Initializing Compressor on channel " + channel + " and relay on channel " + relay);
-		compressor = new Compressor(channel, relay);
-		r.uM.write(4, "Compressor: Unknown");
+		System.out.println("[robot] Initializing Compressor on channel " + pressureSwitchChannel + " and relay on channel " + compressorRelayChannel);
+		compressor = new Compressor(pressureSwitchSlot, pressureSwitchChannel, compressorRelaySlot, compressorRelayChannel);
+		updateUserMessages("Compressor: Unknown");
 	}
 
 	/**
@@ -58,20 +58,20 @@ public class Compressorr implements Constants {
 		if(!forceCompressorOff) {
 			
 			if(!compressor.getPressureSwitchValue()) {
-				r.uM.write(USER_MESSAGES_COMPRESSOR, "Compressor: Enabled");
+				updateUserMessages("Compressor: Enabled");
 				compressor.setRelayValue(Relay.Value.kForward);
 			}
 			else if(compressor.getPressureSwitchValue()) {
-				r.uM.write(USER_MESSAGES_COMPRESSOR, "Compressor: Disabled");
+				updateUserMessages("Compressor: Disabled");
 				compressor.setRelayValue(Relay.Value.kOff);
 			}
 			else {
-				r.uM.write(USER_MESSAGES_COMPRESSOR, "Compressor: Unknown.");
+				updateUserMessages("Compressor: Unknown.");
 			}
 			
 		}
 		else {
-			r.uM.write(USER_MESSAGES_COMPRESSOR, "Compressor: Force stopped.");
+			updateUserMessages("Compressor: Force stopped.");
 			compressor.stop();
 		}
 	}
@@ -100,7 +100,7 @@ public class Compressorr implements Constants {
 	 */
 	void forceStop() {
 		forceCompressorOff = true;
-		r.uM.write(USER_MESSAGES_COMPRESSOR, "Compressor: Force stopped.");
+		updateUserMessages("Compressor: Force stopped.");
 		compressor.stop();
 	}
 	
@@ -110,8 +110,12 @@ public class Compressorr implements Constants {
 	 */
 	void forceStart() {
 		forceCompressorOff = false;
-		r.uM.write(USER_MESSAGES_COMPRESSOR, "Compressor: Force started.");
+		updateUserMessages("Compressor: Force started.");
 		this.run();
+	}
+	
+	public void updateUserMessages(String message) {
+		r.uM.write(kUserMessages6, message);
 	}
 
 }

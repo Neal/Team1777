@@ -34,16 +34,16 @@ public class Autonomous implements Constants {
 	
 	private Robot1777 r;
 	
-	boolean bLM = false, bRM = false, bLR = false; // b = between | Left Middle Right
-	boolean atL = false, atM = false, atR = false; // a = at | Left Middle Right
+	private boolean bLM = false, bRM = false, bLR = false; // b = between | Left Middle Right
+	private boolean atL = false, atM = false, atR = false; // a = at | Left Middle Right
 	
-	double d1 = 0.8;
-	double d2 = 0.2667;
-	double d3 = 0.6;
-	double d4 = 0.6;
+	private double d1 = 0.8;
+	private double d2 = 0.2667;
+	private double d3 = 0.6;
+	private double d4 = 0.6;
 	
-	double startTime = 0;
-	double currentTime = 0;
+	private double startTime = 0;
+	private double currentTime = 0;
 	
 	/**
 	 * Autonomous constructor
