@@ -115,7 +115,6 @@ public class Robot1777 extends SimpleRobot implements Constants {
 		gyro.reset();
 		gyro.setSensitivity(0.007);
 //		compressor.start();
-		int gyroAngle = 0;
 
 		
 		while(isOperatorControl() && isEnabled()) {
@@ -140,9 +139,8 @@ public class Robot1777 extends SimpleRobot implements Constants {
 			if(js1.getButton(kGamepadButtonB) || js1.getButton(kGamepadButtonY)) claw.close();
 			
 			// Gyro Code
-			gyroAngle = (int) gyro.getAngle();
-			if(js1.getButton(kGamepadButtonBack) || gyroAngle >= 360 || gyroAngle <= -360) gyro.reset();
-			uM.write(kUserMessages6, "Gyro: " + gyroAngle);
+			if(js1.getButton(kGamepadButtonBack) || gyro.getAngle() >= 360 || gyro.getAngle() <= -360) gyro.reset();
+			uM.write(kUserMessages6, "Gyro: " + (Math.ceil(gyro.getAngle() * 1000.0) / 1000.0));
 			
 			for(int b=1; b<13; b++) {
 				if(js1.getButton(b)) Debug.println("[js1] Button pressed: " + b);
@@ -150,8 +148,8 @@ public class Robot1777 extends SimpleRobot implements Constants {
 			
 			if(js1.getButton(kGamepadButtonStart)) {
 				double s = 0.6;
-				if(gyroAngle < -2) drive.setSpeed(s, s, s, s);
-				else if(gyroAngle > 2) drive.setSpeed(-s, -s, -s, -s);
+				if(gyro.getAngle() < -2) drive.setSpeed(s, s, s, s);
+				else if(gyro.getAngle() > 2) drive.setSpeed(-s, -s, -s, -s);
 				else drive.setSpeed(0.0, 0.0, 0.0, 0.0);
 			}
 			else {
@@ -174,6 +172,7 @@ public class Robot1777 extends SimpleRobot implements Constants {
 	 */
 	public void disabled() {
 
+		uM.clearAll();
 		uM.write(kUserMessages1, "~ DISABLED MODE ~");
 		System.out.println("[mode] Disabled");
 //		compressor.stop();

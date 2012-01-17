@@ -37,7 +37,6 @@ import edu.wpi.first.wpilibj.image.NIVisionException;
 public class Camera implements Constants {
 
 		private Robot1777 r;
-		private AxisCamera cam;
 		private Servo camServo;
 		
 		/**
@@ -62,13 +61,14 @@ public class Camera implements Constants {
 		 */
 		public void init() {
 
-			cam = AxisCamera.getInstance();
-			cam.writeBrightness(50);
-			cam.writeRotation(AxisCamera.RotationT.k180);
-			cam.writeResolution(AxisCamera.ResolutionT.k320x240);
-			cam.writeWhiteBalance(AxisCamera.WhiteBalanceT.automatic);
-			cam.writeExposureControl(AxisCamera.ExposureT.automatic);
-			cam.writeExposurePriority(AxisCamera.ExposurePriorityT.frameRate);
+			AxisCamera.getInstance();
+			AxisCamera.getInstance().writeCompression(0);
+			AxisCamera.getInstance().writeBrightness(10);
+			AxisCamera.getInstance().writeRotation(AxisCamera.RotationT.k180);
+			AxisCamera.getInstance().writeResolution(AxisCamera.ResolutionT.k320x240);
+			AxisCamera.getInstance().writeWhiteBalance(AxisCamera.WhiteBalanceT.automatic);
+			AxisCamera.getInstance().writeExposureControl(AxisCamera.ExposureT.automatic);
+			AxisCamera.getInstance().writeExposurePriority(AxisCamera.ExposurePriorityT.frameRate);
 			
 		}
 		

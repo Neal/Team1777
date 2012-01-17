@@ -57,6 +57,16 @@ public class UserMessages {
 	}
 
 	/**
+	 * Initialize User Messages. Clear all lines and update 1st line.
+	 * 
+	 */
+	public void init() {
+		
+		clearAll();
+		write(1, 1, "Robot Ready!");
+	}
+
+	/**
 	 * Prints the specified string on the User Messages starting from the begining.
 	 * @param lineNumber Line number. Could be from 1 to 6.
 	 * @param Message The message to be printed.
@@ -77,16 +87,6 @@ public class UserMessages {
 		uM.println(line[lineNumber-1], startColumn, "                         ");
 		uM.println(line[lineNumber-1], startColumn, Message);
 		uM.updateLCD();
-	}
-
-	/**
-	 * Initialize User Messages. Clear all lines and update 1st line.
-	 * 
-	 */
-	public void init() {
-		
-		clearAll();
-		write(1, 1, "Robot Ready!");
 	}
 
 	/**
